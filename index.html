@@ -504,7 +504,7 @@
             color: rgba(245, 245, 245, 0.5);
         }
 
-        /* Tap indicator */
+        /* Tap indicator (now non‑blocking) */
         .tap-indicator {
             position: fixed;
             bottom: 40px;
@@ -516,7 +516,7 @@
             font-size: 0.78rem;
             letter-spacing: 0.08em;
             animation: hintPulse 2.5s ease-in-out infinite;
-            pointer-events: none;
+            pointer-events: none;   /* ⬅️ FIX: prevents blocking the button */
         }
 
         @media (max-width: 380px) {
@@ -557,7 +557,7 @@
         <div class="scene active" id="scene-intro">
             <p class="scene-title" id="intro-line1" style="opacity:0;">Hi Melody…</p>
             <p class="scene-text italic" id="intro-line2" style="opacity:0;margin-top:12px;">This is our story</p>
-            <button class="glow-btn" id="btn-begin" style="opacity:0;transition:opacity 0.8s ease;">Tap to Begin</button>
+            <button class="glow-btn" id="btn-begin" style="opacity:0;">Tap to Begin</button>
         </div>
 
         <!-- Scene 1: Meeting -->
@@ -630,7 +630,7 @@
         <p class="puzzle-msg" id="puzzle-msg">Bring them together… 💛</p>
     </div>
 
-    <!-- Tap indicator -->
+    <!-- Tap indicator (now purely visual) -->
     <div class="tap-indicator" id="tap-indicator">tap to continue</div>
 
     <script>
@@ -918,7 +918,7 @@
                 btnBegin.appendChild(ripple);
                 setTimeout(() => ripple.remove(), 700);
 
-                // Fade out intro
+                // Fade out audio and start journey
                 fadeOutAudio();
                 setTimeout(() => fadeInAudio(), 300);
                 transitionScene('intro', null, () => {
