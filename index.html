@@ -211,7 +211,6 @@
             }
         }
 
-        /* Memory Photo */
         .memory-photo {
             position: fixed;
             top: 50%;
@@ -298,7 +297,6 @@
             }
         }
 
-        /* Heart Puzzle Overlay */
         #puzzle-overlay {
             position: fixed;
             top: 0;
@@ -373,7 +371,7 @@
             opacity: 1;
         }
 
-        /* Hold to reveal */
+        /* Hold area – now with a gentle pulse to attract attention */
         #hold-area {
             position: relative;
             display: inline-block;
@@ -384,11 +382,24 @@
             transition: all 0.4s ease;
             margin: 16px 0;
             background: rgba(212, 175, 55, 0.03);
+            animation: holdPulse 2.2s ease-in-out infinite;
+        }
+        @keyframes holdPulse {
+            0%,
+            100% {
+                border-color: rgba(212, 175, 55, 0.35);
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+            }
+            50% {
+                border-color: rgba(212, 175, 55, 0.85);
+                box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+            }
         }
         #hold-area.pressed {
             border-color: var(--gold);
             background: rgba(212, 175, 55, 0.12);
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.4);
+            animation: none;
         }
         #hold-reveal-text {
             font-family: 'Dancing Script', cursive;
@@ -413,8 +424,15 @@
             pointer-events: none;
             transition: opacity 0.5s ease;
         }
+        .hold-instruction {
+            font-family: 'Playfair Display', serif;
+            color: rgba(245, 245, 245, 0.4);
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            margin-top: 8px;
+            pointer-events: none;
+        }
 
-        /* Floating hearts */
         .floating-heart {
             position: fixed;
             pointer-events: auto;
@@ -447,7 +465,6 @@
             }
         }
 
-        /* Final burst */
         .burst-heart {
             position: fixed;
             pointer-events: none;
@@ -471,7 +488,6 @@
             }
         }
 
-        /* Audio button */
         #audio-btn {
             position: fixed;
             top: 20px;
@@ -504,7 +520,6 @@
             color: rgba(245, 245, 245, 0.5);
         }
 
-        /* Tap indicator (now non‑blocking) */
         .tap-indicator {
             position: fixed;
             bottom: 40px;
@@ -516,7 +531,7 @@
             font-size: 0.78rem;
             letter-spacing: 0.08em;
             animation: hintPulse 2.5s ease-in-out infinite;
-            pointer-events: none;   /* ⬅️ FIX: prevents blocking the button */
+            pointer-events: none;
         }
 
         @media (max-width: 380px) {
@@ -542,6 +557,9 @@
                 padding: 12px 30px;
                 font-size: 0.95rem;
             }
+            #hold-area {
+                padding: 22px 28px;
+            }
         }
     </style>
 </head>
@@ -553,52 +571,46 @@
     <button id="audio-btn" class="muted" aria-label="Toggle music">♪</button>
 
     <div id="main-container">
-        <!-- Scene 0: Intro -->
         <div class="scene active" id="scene-intro">
             <p class="scene-title" id="intro-line1" style="opacity:0;">Hi Melody…</p>
             <p class="scene-text italic" id="intro-line2" style="opacity:0;margin-top:12px;">This is our story</p>
             <button class="glow-btn" id="btn-begin" style="opacity:0;">Tap to Begin</button>
         </div>
 
-        <!-- Scene 1: Meeting -->
         <div class="scene" id="scene-meeting">
             <p class="scene-text from-left" id="meet-line1"></p>
             <p class="scene-text from-right" id="meet-line2"></p>
             <p class="scene-text zoom-in" id="meet-line3"></p>
         </div>
 
-        <!-- Scene 2: Separation -->
         <div class="scene" id="scene-separation">
             <p class="scene-text from-left" id="sep-line1"></p>
             <p class="scene-text italic from-right" id="sep-line2"></p>
             <p class="scene-text zoom-in" id="sep-line3"></p>
         </div>
 
-        <!-- Scene 3: Reconnection -->
         <div class="scene" id="scene-reconnect">
             <p class="scene-text from-right" id="recon-line1"></p>
             <p class="scene-text highlight" id="recon-line2"></p>
             <p class="scene-text from-left" id="recon-line3"></p>
         </div>
 
-        <!-- Scene 4: Love Growth -->
         <div class="scene" id="scene-love">
             <p class="scene-text zoom-in" id="love-line1"></p>
             <p class="scene-text from-left" id="love-line2"></p>
             <p class="scene-text highlight" id="love-line3"></p>
         </div>
 
-        <!-- Scene 5: Deep Emotion + Hold -->
         <div class="scene" id="scene-deep">
             <p class="scene-text from-right" id="deep-line1"></p>
             <div id="hold-area">
                 <span class="hold-label">Hold here to reveal…</span>
                 <p id="hold-reveal-text"></p>
             </div>
+            <p class="hold-instruction" id="hold-instruction">press and hold the glowing area</p>
             <p class="scene-text zoom-in" id="deep-line2" style="opacity:0;"></p>
         </div>
 
-        <!-- Scene 6: Final -->
         <div class="scene" id="scene-final">
             <p class="scene-title" id="final-line1" style="opacity:0;">I love you, Melody.</p>
             <button class="glow-btn" id="btn-final" style="opacity:0;">Tap Here ❤️</button>
@@ -606,7 +618,6 @@
         </div>
     </div>
 
-    <!-- Memory Photos -->
     <div class="memory-photo" id="memory-photo-1">
         <div class="photo-inner">🌟✨</div>
         <span class="photo-label">The moment we met</span>
@@ -621,7 +632,6 @@
     </div>
     <span class="swipe-hint" id="swipe-hint" style="opacity:0;">← swipe through memories →</span>
 
-    <!-- Heart Puzzle Overlay -->
     <div id="puzzle-overlay">
         <div class="puzzle-container" id="puzzle-container">
             <div class="heart-half left-half" id="heart-left"></div>
@@ -630,14 +640,10 @@
         <p class="puzzle-msg" id="puzzle-msg">Bring them together… 💛</p>
     </div>
 
-    <!-- Tap indicator (now purely visual) -->
     <div class="tap-indicator" id="tap-indicator">tap to continue</div>
 
     <script>
         (function() {
-            // ───────────────────────────────────
-            // PARTICLE BACKGROUND
-            // ───────────────────────────────────
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
             let particles = [];
@@ -708,9 +714,6 @@
             }
             animateParticles();
 
-            // ───────────────────────────────────
-            // AUDIO SETUP
-            // ───────────────────────────────────
             const audioBtn = document.getElementById('audio-btn');
             let audioCtx = null;
             let ambientOsc = null;
@@ -727,7 +730,6 @@
                     ambientGain = audioCtx.createGain();
                     ambientGain.gain.value = 0;
                     ambientGain.connect(audioCtx.destination);
-
                     const osc1 = audioCtx.createOscillator();
                     osc1.type = 'sine';
                     osc1.frequency.value = 220;
@@ -737,14 +739,12 @@
                     const osc3 = audioCtx.createOscillator();
                     osc3.type = 'sine';
                     osc3.frequency.value = 329.63;
-
                     const merge = audioCtx.createGain();
                     merge.gain.value = 0.25;
                     osc1.connect(merge);
                     osc2.connect(merge);
                     osc3.connect(merge);
                     merge.connect(ambientGain);
-
                     osc1.start();
                     osc2.start();
                     osc3.start();
@@ -784,9 +784,6 @@
                 }
             });
 
-            // ───────────────────────────────────
-            // STORY STATE MACHINE
-            // ───────────────────────────────────
             const scenes = {
                 intro: document.getElementById('scene-intro'),
                 meeting: document.getElementById('scene-meeting'),
@@ -850,14 +847,10 @@
                 }, fromId ? 400 : 100);
             }
 
-            // Hide all scenes except intro initially
             Object.keys(scenes).forEach(k => {
                 if (k !== 'intro') scenes[k].classList.remove('active');
             });
 
-            // ───────────────────────────────────
-            // TYPING EFFECT
-            // ───────────────────────────────────
             function typeText(element, text, speed = 35, callback) {
                 element.textContent = '';
                 element.style.opacity = '1';
@@ -887,9 +880,6 @@
                 }, delay);
             }
 
-            // ───────────────────────────────────
-            // INTRO SEQUENCE
-            // ───────────────────────────────────
             const introLine1 = document.getElementById('intro-line1');
             const introLine2 = document.getElementById('intro-line2');
             const btnBegin = document.getElementById('btn-begin');
@@ -908,7 +898,6 @@
             }, 800);
 
             btnBegin.addEventListener('click', function(e) {
-                // Ripple
                 const ripple = document.createElement('span');
                 ripple.className = 'ripple';
                 const rect = btnBegin.getBoundingClientRect();
@@ -917,8 +906,6 @@
                 ripple.style.width = ripple.style.height = '60px';
                 btnBegin.appendChild(ripple);
                 setTimeout(() => ripple.remove(), 700);
-
-                // Fade out audio and start journey
                 fadeOutAudio();
                 setTimeout(() => fadeInAudio(), 300);
                 transitionScene('intro', null, () => {
@@ -928,9 +915,6 @@
                 tapIndicator.style.opacity = '0';
             });
 
-            // ───────────────────────────────────
-            // CHAPTER 1: MEETING
-            // ───────────────────────────────────
             function startChapter1() {
                 transitionScene(null, 'meeting', () => {
                     tapIndicator.style.opacity = '1';
@@ -943,7 +927,6 @@
                     l1.style.opacity = '0';
                     l2.style.opacity = '0';
                     l3.style.opacity = '0';
-
                     typeText(l1, 'I remember the first time I saw you last year…', 30, () => {
                         setTimeout(() => {
                             l1.style.opacity = '1';
@@ -966,9 +949,6 @@
                 });
             }
 
-            // ───────────────────────────────────
-            // CHAPTER 2: SEPARATION
-            // ───────────────────────────────────
             function startChapter2() {
                 hideAllMemories();
                 transitionScene('meeting', 'separation', () => {
@@ -982,7 +962,6 @@
                     l1.style.opacity = '0';
                     l2.style.opacity = '0';
                     l3.style.opacity = '0';
-
                     typeText(l1, 'Then life pulled us apart.', 32, () => {
                         l1.style.opacity = '1';
                         setTimeout(() => {
@@ -1004,9 +983,6 @@
                 });
             }
 
-            // ───────────────────────────────────
-            // CHAPTER 3: RECONNECTION
-            // ───────────────────────────────────
             function startChapter3() {
                 hideAllMemories();
                 transitionScene('separation', 'reconnect', () => {
@@ -1020,7 +996,6 @@
                     l1.style.opacity = '0';
                     l2.style.opacity = '0';
                     l3.style.opacity = '0';
-
                     typeText(l1, 'And then — this year — we met again.', 30, () => {
                         l1.style.opacity = '1';
                         setTimeout(() => {
@@ -1040,9 +1015,6 @@
                 });
             }
 
-            // ───────────────────────────────────
-            // CHAPTER 4: LOVE GROWTH
-            // ───────────────────────────────────
             function startChapter4() {
                 hideAllMemories();
                 transitionScene('reconnect', 'love', () => {
@@ -1056,7 +1028,6 @@
                     l1.style.opacity = '0';
                     l2.style.opacity = '0';
                     l3.style.opacity = '0';
-
                     typeText(l1, 'Slowly, you became important to me in ways I never expected.', 30, () => {
                         l1.style.opacity = '1';
                         setTimeout(() => {
@@ -1078,36 +1049,40 @@
                 });
             }
 
-            // ───────────────────────────────────
-            // CHAPTER 5: DEEP EMOTION + HOLD + PUZZLE
-            // ───────────────────────────────────
             function startChapter5() {
                 hideAllMemories();
+                // Force‑hide the tap indicator and swipe hint so they never linger here
+                tapIndicator.style.opacity = '0';
+                swipeHint.style.opacity = '0';
                 transitionScene('love', 'deep', () => {
                     tapIndicator.style.opacity = '0';
+                    swipeHint.style.opacity = '0';
                     const l1 = document.getElementById('deep-line1');
                     const holdArea = document.getElementById('hold-area');
                     const holdReveal = document.getElementById('hold-reveal-text');
                     const holdLabel = holdArea.querySelector('.hold-label');
+                    const holdInstruction = document.getElementById('hold-instruction');
                     const deepLine2 = document.getElementById('deep-line2');
                     l1.textContent = '';
                     l1.style.opacity = '0';
                     holdReveal.textContent = '';
                     holdReveal.classList.remove('revealing');
                     holdLabel.style.opacity = '1';
+                    holdInstruction.style.opacity = '1';
                     deepLine2.style.opacity = '0';
                     deepLine2.textContent = '';
+                    holdArea.style.opacity = '1';
+                    holdArea.style.pointerEvents = 'auto';
+                    holdArea.classList.remove('pressed');
 
                     typeText(l1, 'There\'s something I need you to know…', 32, () => {
                         l1.style.opacity = '1';
-                        holdArea.style.opacity = '1';
-                        holdArea.style.pointerEvents = 'auto';
-                        setupHoldReveal(holdArea, holdReveal, holdLabel, deepLine2);
+                        setupHoldReveal(holdArea, holdReveal, holdLabel, holdInstruction, deepLine2);
                     });
                 });
             }
 
-            function setupHoldReveal(holdArea, holdReveal, holdLabel, deepLine2) {
+            function setupHoldReveal(holdArea, holdReveal, holdLabel, holdInstruction, deepLine2) {
                 let holdTimer = null;
                 let revealProgress = 0;
                 const fullMessage =
@@ -1123,11 +1098,13 @@
                 function startHold(e) {
                     e.preventDefault();
                     holdArea.classList.add('pressed');
-                    holdLabel.style.opacity = '0.4';
+                    holdLabel.style.opacity = '0.3';
+                    holdInstruction.style.opacity = '0.3';
                     revealProgress = 0;
                     currentStep = -1;
                     holdReveal.textContent = '';
                     holdReveal.classList.add('revealing');
+                    if (holdTimer) clearInterval(holdTimer);
                     holdTimer = setInterval(() => {
                         revealProgress += 1;
                         const stepIndex = Math.min(
@@ -1141,16 +1118,19 @@
                         if (revealProgress >= 105 && !isRevealed) {
                             isRevealed = true;
                             clearInterval(holdTimer);
+                            holdTimer = null;
                             holdArea.classList.remove('pressed');
                             holdLabel.style.opacity = '0';
+                            holdInstruction.style.opacity = '0';
                             holdReveal.textContent = fullMessage;
+                            holdArea.style.pointerEvents = 'none';
+                            holdArea.style.opacity = '0.7';
+                            holdArea.style.animation = 'none';
                             setTimeout(() => {
                                 deepLine2.textContent =
                                     'I am vulnerable with you — and I wouldn\'t have it any other way.';
                                 deepLine2.style.opacity = '1';
                                 deepLine2.style.transition = 'opacity 1s ease';
-                                holdArea.style.pointerEvents = 'none';
-                                holdArea.style.opacity = '0.7';
                                 setTimeout(() => launchHeartPuzzle(), 1500);
                             }, 800);
                         }
@@ -1164,23 +1144,36 @@
                         holdArea.classList.remove('pressed');
                         if (revealProgress < 105) {
                             holdLabel.style.opacity = '1';
+                            holdInstruction.style.opacity = '1';
                         }
                     }
                 }
 
-                holdArea.addEventListener('mousedown', startHold);
-                holdArea.addEventListener('touchstart', startHold, { passive: false });
-                holdArea.addEventListener('mouseup', endHold);
-                holdArea.addEventListener('mouseleave', endHold);
-                holdArea.addEventListener('touchend', endHold);
-                holdArea.addEventListener('touchcancel', endHold);
-                holdArea.style.opacity = '1';
-                holdArea.style.pointerEvents = 'auto';
+                // Remove any old listeners by cloning (simple approach)
+                const newHoldArea = holdArea.cloneNode(true);
+                holdArea.parentNode.replaceChild(newHoldArea, holdArea);
+                const freshHoldArea = document.getElementById('hold-area');
+                const freshHoldReveal = document.getElementById('hold-reveal-text');
+                const freshHoldLabel = freshHoldArea.querySelector('.hold-label');
+                const freshHoldInstruction = document.getElementById('hold-instruction');
+
+                freshHoldArea.addEventListener('mousedown', startHold);
+                freshHoldArea.addEventListener('touchstart', startHold, { passive: false });
+                freshHoldArea.addEventListener('mouseup', endHold);
+                freshHoldArea.addEventListener('mouseleave', endHold);
+                freshHoldArea.addEventListener('touchend', endHold);
+                freshHoldArea.addEventListener('touchcancel', endHold);
+                freshHoldArea.style.opacity = '1';
+                freshHoldArea.style.pointerEvents = 'auto';
+
+                // Update the references in the outer scope for the deepLine2 callback
+                window._holdRevealRef = freshHoldReveal;
+                window._holdLabelRef = freshHoldLabel;
+                window._holdInstructionRef = freshHoldInstruction;
+                window._deepLine2Ref = deepLine2;
+                window._holdAreaRef = freshHoldArea;
             }
 
-            // ───────────────────────────────────
-            // HEART PUZZLE
-            // ───────────────────────────────────
             function launchHeartPuzzle() {
                 const overlay = document.getElementById('puzzle-overlay');
                 const container = document.getElementById('puzzle-container');
@@ -1193,7 +1186,6 @@
                 overlay.classList.add('active');
                 setTimeout(() => puzzleMsg.classList.add('visible'), 600);
 
-                // Reset positions
                 heartLeft.style.transform = 'translate(0px, 0px)';
                 heartRight.style.transform = 'translate(0px, 0px)';
                 heartLeft.style.position = 'relative';
@@ -1202,6 +1194,10 @@
                 heartRight.style.left = '0px';
                 heartLeft.style.top = '0px';
                 heartRight.style.top = '0px';
+                heartLeft.style.pointerEvents = 'auto';
+                heartRight.style.pointerEvents = 'auto';
+                heartLeft.style.cursor = 'grab';
+                heartRight.style.cursor = 'grab';
 
                 let leftPos = { x: 0, y: 0 };
                 let rightPos = { x: 0, y: 0 };
@@ -1225,7 +1221,6 @@
                     const rp = getPos(heartRight);
                     const dist = Math.hypot((lp.x + 50) - (rp.x + 50), (lp.y + 80) - (rp.y + 80));
                     if (dist < 55) {
-                        // Solved!
                         container.classList.add('solved');
                         puzzleMsg.textContent = 'Our hearts belong together 💛';
                         puzzleMsg.classList.add('visible');
@@ -1283,14 +1278,11 @@
                 heartLeft.addEventListener('touchstart', (e) => onStart(e, 'left'), { passive: false });
                 heartRight.addEventListener('mousedown', (e) => onStart(e, 'right'));
                 heartRight.addEventListener('touchstart', (e) => onStart(e, 'right'), { passive: false });
-
                 document.addEventListener('mousemove', onMove);
                 document.addEventListener('touchmove', onMove, { passive: false });
                 document.addEventListener('mouseup', onEnd);
                 document.addEventListener('touchend', onEnd);
                 document.addEventListener('touchcancel', onEnd);
-
-                // Store cleanup reference
                 window._puzzleCleanup = () => {
                     document.removeEventListener('mousemove', onMove);
                     document.removeEventListener('touchmove', onMove);
@@ -1300,21 +1292,18 @@
                 };
             }
 
-            // ───────────────────────────────────
-            // FINAL SCENE
-            // ───────────────────────────────────
             function startFinalScene() {
                 if (window._puzzleCleanup) window._puzzleCleanup();
                 hideAllMemories();
+                tapIndicator.style.opacity = '0';
+                swipeHint.style.opacity = '0';
                 transitionScene('deep', 'final', () => {
-                    tapIndicator.style.opacity = '0';
                     const finalLine1 = document.getElementById('final-line1');
                     const btnFinal = document.getElementById('btn-final');
                     const finalWhisper = document.getElementById('final-whisper');
                     finalLine1.style.opacity = '0';
                     btnFinal.style.opacity = '0';
                     finalWhisper.style.opacity = '0';
-
                     setTimeout(() => {
                         fadeInText(finalLine1, 'I love you, Melody.', 600, () => {
                             setTimeout(() => {
@@ -1323,7 +1312,6 @@
                             }, 500);
                         });
                     }, 400);
-
                     btnFinal.onclick = function(e) {
                         const ripple = document.createElement('span');
                         ripple.className = 'ripple';
@@ -1333,7 +1321,6 @@
                         ripple.style.width = ripple.style.height = '60px';
                         btnFinal.appendChild(ripple);
                         setTimeout(() => ripple.remove(), 700);
-
                         btnFinal.style.opacity = '0';
                         btnFinal.style.pointerEvents = 'none';
                         burstHearts();
@@ -1350,7 +1337,6 @@
                 const count = 50;
                 const centerX = window.innerWidth / 2;
                 const centerY = window.innerHeight / 2;
-
                 for (let i = 0; i < count; i++) {
                     setTimeout(() => {
                         const heart = document.createElement('span');
@@ -1367,8 +1353,6 @@
                         setTimeout(() => heart.remove(), 2600);
                     }, i * 35);
                 }
-
-                // Extra glow flash
                 const flash = document.createElement('div');
                 flash.style.cssText = `
                     position:fixed;top:0;left:0;width:100%;height:100%;
@@ -1381,9 +1365,6 @@
                 setTimeout(() => flash.remove(), 1600);
             }
 
-            // ───────────────────────────────────
-            // TAP TO ADVANCE HELPER
-            // ───────────────────────────────────
             function setupTapToAdvance(currentSceneId, nextSceneId, startNextFn, memoryCallback) {
                 const currentScene = scenes[currentSceneId];
                 let hasAdvanced = false;
@@ -1400,8 +1381,6 @@
                     currentScene.removeEventListener('click', advance);
                     document.removeEventListener('touchend', advance);
                 }
-
-                // Small delay to prevent immediate trigger
                 setTimeout(() => {
                     currentScene.addEventListener('click', advance);
                     document.addEventListener('touchend', function touchAdv(e) {
@@ -1416,16 +1395,12 @@
                 }, 600);
             }
 
-            // ───────────────────────────────────
-            // SWIPE THROUGH MEMORIES
-            // ───────────────────────────────────
             let swipeStartX = 0;
             document.addEventListener('touchstart', function(e) {
                 if (e.target.closest('.memory-photo') || e.target.closest('#swipe-hint') || activeMemory) {
                     swipeStartX = e.touches[0].clientX;
                 }
             }, { passive: true });
-
             document.addEventListener('touchend', function(e) {
                 if (!activeMemory) return;
                 const dx = e.changedTouches[0].clientX - swipeStartX;
@@ -1438,9 +1413,6 @@
                 }
             });
 
-            // ───────────────────────────────────
-            // FLOATING HEARTS (AMBIENT)
-            // ───────────────────────────────────
             function spawnFloatingHeart() {
                 const heart = document.createElement('span');
                 heart.className = 'floating-heart';
@@ -1450,7 +1422,6 @@
                 heart.style.fontSize = (1 + Math.random() * 2) + 'rem';
                 heart.style.animationDuration = (5 + Math.random() * 8) + 's';
                 document.body.appendChild(heart);
-
                 heart.addEventListener('click', function(e) {
                     e.stopPropagation();
                     heart.style.transform = 'scale(2.2)';
@@ -1463,7 +1434,6 @@
                     }, 300);
                     setTimeout(() => heart.remove(), 800);
                 });
-
                 heart.addEventListener('touchend', function(e) {
                     e.stopPropagation();
                     e.preventDefault();
@@ -1477,35 +1447,30 @@
                     }, 300);
                     setTimeout(() => heart.remove(), 800);
                 });
-
                 setTimeout(() => {
                     if (heart.parentNode) heart.remove();
                 }, 9000);
             }
-
             setInterval(() => {
                 if (document.querySelectorAll('.floating-heart').length < 8) {
                     spawnFloatingHeart();
                 }
             }, 2500);
-            // Initial hearts
             setTimeout(spawnFloatingHeart, 3000);
             setTimeout(spawnFloatingHeart, 5000);
             setTimeout(spawnFloatingHeart, 7000);
 
-            // ───────────────────────────────────
-            // INITIAL SETUP
-            // ───────────────────────────────────
             tapIndicator.style.opacity = '1';
-            // Hide all non-intro scenes
             Object.keys(scenes).forEach(k => {
                 if (k !== 'intro') scenes[k].classList.remove('active');
             });
             scenes['intro'].classList.add('active');
-            document.getElementById('hold-area').style.opacity = '0';
-            document.getElementById('hold-area').style.pointerEvents = 'none';
+            const holdAreaInitial = document.getElementById('hold-area');
+            holdAreaInitial.style.opacity = '0';
+            holdAreaInitial.style.pointerEvents = 'none';
+            document.getElementById('hold-instruction').style.opacity = '0';
 
-            console.log('✨ For Melody — with all my heart.');
+            console.log('✨ For Melody — now clearer than ever. Hold the glowing box when it appears.');
         })();
     </script>
 </body>
