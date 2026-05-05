@@ -2,337 +2,1511 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Beautiful Penny</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>For Melody</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --black: #0f0f0f;
+            --gold: #d4af37;
+            --soft-white: #f5f5f5;
+            --blue-glow: #6fa8dc;
+            --gold-dim: #a68a2e;
+            --bg: #0a0a0a;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Georgia', serif;
         }
-        
+
+        html,
         body {
-            background: linear-gradient(135deg, #ffd1dc, #f9f0ff);
-            color: #5a3d5c;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            padding: 40px 0;
-            position: relative;
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            color: #d14d72;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .subtitle {
-            font-size: 1.5rem;
-            font-style: italic;
-            color: #8b5a7a;
-        }
-        
-        .photo-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin: 40px 0;
-            perspective: 1000px;
-        }
-        
-        .photo-frame {
-            width: 250px;
-            height: 300px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s;
-            cursor: pointer;
-        }
-        
-        .photo-frame:hover {
-            transform: rotateY(15deg) scale(1.05);
-        }
-        
-        .photo {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            border: 8px solid white;
-        }
-        
-        .poem-section {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 40px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
             overflow: hidden;
+            background: var(--bg);
+            font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        .poem-section::before {
-            content: "";
-            position: absolute;
+
+        #particle-canvas {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23f9f0ff" d="M50,0 C77.614,0 100,22.386 100,50 C100,77.614 77.614,100 50,100 C22.386,100 0,77.614 0,50 C0,22.386 22.386,0 50,0 Z M50,10 C27.909,10 10,27.909 10,50 C10,72.091 27.909,90 50,90 C72.091,90 90,72.091 90,50 C90,27.909 72.091,10 50,10 Z"/></svg>');
-            opacity: 0.1;
+            pointer-events: none;
             z-index: 0;
         }
-        
-        .poem-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #d14d72;
+
+        .ambient-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vmax;
+            height: 60vmax;
+            background: radial-gradient(ellipse, rgba(111, 168, 220, 0.06) 0%, rgba(212, 175, 55, 0.03) 30%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: glowPulse 8s ease-in-out infinite;
+        }
+        @keyframes glowPulse {
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.25);
+            }
+        }
+
+        #main-container {
             position: relative;
             z-index: 1;
-        }
-        
-        .poem {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .poem-line {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s, transform 0.8s;
-            margin-bottom: 15px;
-        }
-        
-        .music-player {
-            text-align: center;
-            margin: 40px 0;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .music-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #d14d72;
-        }
-        
-        .love-symbols {
+            width: 100%;
+            height: 100%;
             display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scene {
+            position: absolute;
+            width: 90%;
+            max-width: 550px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+            padding: 20px;
+        }
+        .scene.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        .scene.fading-out {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.6s ease-in, transform 0.6s ease-in;
+        }
+
+        .scene-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            color: var(--gold);
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.5), 0 0 80px rgba(212, 175, 55, 0.25);
+            margin-bottom: 16px;
+            letter-spacing: 0.04em;
+            line-height: 1.3;
+        }
+        .scene-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 2.8vw, 1.35rem);
+            color: var(--soft-white);
+            line-height: 1.7;
+            letter-spacing: 0.03em;
+            text-shadow: 0 0 20px rgba(245, 245, 245, 0.15);
+            margin-bottom: 0.6em;
+            min-height: 1.5em;
+        }
+        .scene-text.italic {
+            font-style: italic;
+            color: #e8dcc8;
+        }
+        .scene-text.highlight {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+            color: var(--gold);
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+            letter-spacing: 0.05em;
+        }
+        .scene-text.from-left {
+            animation: slideInLeft 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+        .scene-text.from-right {
+            animation: slideInRight 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+        .scene-text.zoom-in {
+            animation: zoomIn 1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.75);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .glow-btn {
+            display: inline-block;
+            padding: 14px 40px;
+            border: 1.5px solid var(--gold);
+            background: rgba(212, 175, 55, 0.08);
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.08em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2), inset 0 0 20px rgba(212, 175, 55, 0.05);
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        .glow-btn:active {
+            background: rgba(212, 175, 55, 0.25);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.5), inset 0 0 30px rgba(212, 175, 55, 0.15);
+            transform: scale(0.96);
+            transition: all 0.1s ease;
+        }
+        .glow-btn .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple 0.7s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes ripple {
+            to {
+                transform: scale(5);
+                opacity: 0;
+            }
+        }
+
+        /* Memory Photo */
+        .memory-photo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.85);
+            width: 75vw;
+            max-width: 380px;
+            height: 55vw;
+            max-height: 280px;
+            border-radius: 16px;
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.3), 0 20px 50px rgba(0, 0, 0, 0.6);
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+        .memory-photo.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+            animation: gentleFloat 3s ease-in-out infinite;
+        }
+        .memory-photo.hide {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.8);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        @keyframes gentleFloat {
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -52%) scale(1.02);
+            }
+        }
+        .memory-photo .photo-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2220 40%, #1a1a1a 100%);
+        }
+        .memory-photo .photo-label {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            color: var(--soft-white);
+            font-size: 0.9rem;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+            background: rgba(15, 15, 15, 0.7);
+            padding: 4px 16px;
+            border-radius: 20px;
+            letter-spacing: 0.04em;
+        }
+        .swipe-hint {
+            position: absolute;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Playfair Display', serif;
+            color: rgba(245, 245, 245, 0.6);
+            font-size: 0.8rem;
+            letter-spacing: 0.06em;
+            animation: hintPulse 2s ease-in-out infinite;
+            z-index: 11;
+            pointer-events: none;
+        }
+        @keyframes hintPulse {
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+            50% {
+                opacity: 0.9;
+            }
+        }
+
+        /* Heart Puzzle Overlay */
+        #puzzle-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        #puzzle-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .puzzle-container {
+            position: relative;
+            width: 300px;
+            height: 280px;
+            display: flex;
+            align-items: center;
             justify-content: center;
             gap: 40px;
-            margin: 40px 0;
-            flex-wrap: wrap;
+            transition: gap 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        
-        .symbol {
-            text-align: center;
-            transition: transform 0.5s;
+        .puzzle-container.solved {
+            gap: 4px;
         }
-        
-        .symbol:hover {
-            transform: scale(1.2) rotate(10deg);
-        }
-        
-        .symbol i {
-            font-size: 3rem;
-            color: #d14d72;
-            margin-bottom: 10px;
-        }
-        
-        .ring {
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle at 30% 30%, #ffd700, #ffa500);
-            border-radius: 50%;
+        .heart-half {
+            width: 100px;
+            height: 160px;
+            cursor: grab;
+            transition: filter 0.3s ease;
             position: relative;
-            margin: 0 auto 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 21;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
         }
-        
-        .ring::before {
-            content: "";
+        .heart-half:active {
+            cursor: grabbing;
+            filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.8));
+        }
+        .heart-half.left-half {
+            clip-path: polygon(50% 0%, 100% 0%, 100% 30%, 80% 55%, 50% 80%, 50% 100%, 50% 100%, 0% 80%, 0% 30%, 0% 0%);
+            background: linear-gradient(135deg, #c49a2c, #e0c060, #b8861e);
+            border-radius: 0;
+        }
+        .heart-half.right-half {
+            clip-path: polygon(50% 0%, 100% 0%, 100% 30%, 100% 55%, 100% 80%, 50% 100%, 50% 100%, 50% 80%, 20% 55%, 0% 30%);
+            background: linear-gradient(225deg, #c49a2c, #e0c060, #b8861e);
+            border-radius: 0;
+        }
+        .puzzle-msg {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 2px solid white;
-            border-radius: 50%;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 30px;
-            margin-top: 40px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 15px 15px 0 0;
+            bottom: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            color: var(--gold);
             font-size: 1.2rem;
-            color: #8b5a7a;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            white-space: nowrap;
         }
-        
-        .heart {
-            color: #d14d72;
+        .puzzle-msg.visible {
+            opacity: 1;
+        }
+
+        /* Hold to reveal */
+        #hold-area {
+            position: relative;
             display: inline-block;
-            animation: heartbeat 1.5s infinite;
+            padding: 30px 50px;
+            border: 2px dashed rgba(212, 175, 55, 0.5);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin: 16px 0;
+            background: rgba(212, 175, 55, 0.03);
         }
-        
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        #hold-area.pressed {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.12);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
         }
-        
-        .flower {
-            position: absolute;
-            font-size: 2rem;
-            opacity: 0.7;
-            z-index: -1;
-            animation: float 8s infinite ease-in-out;
+        #hold-reveal-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: var(--soft-white);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            letter-spacing: 0.04em;
+            line-height: 1.6;
+            max-width: 400px;
+            margin: 0 auto;
+            text-shadow: 0 0 25px rgba(245, 245, 245, 0.3);
         }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
+        #hold-reveal-text.revealing {
+            opacity: 1;
         }
-        
-        /* Responsive design */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
+        .hold-label {
+            font-family: 'Playfair Display', serif;
+            color: rgba(245, 245, 245, 0.6);
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Floating hearts */
+        .floating-heart {
+            position: fixed;
+            pointer-events: auto;
+            z-index: 5;
+            font-size: 1.5rem;
+            animation: floatUp 6s linear forwards;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+        }
+        .floating-heart:active {
+            transform: scale(1.8);
+            text-shadow: 0 0 35px rgba(255, 200, 80, 0.9);
+        }
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0) scale(0.4);
             }
-            
-            .photo-frame {
-                width: 200px;
-                height: 250px;
+            15% {
+                opacity: 1;
+                transform: translateY(-30px) translateX(10px) scale(1);
             }
-            
-            .poem {
-                font-size: 1.1rem;
+            85% {
+                opacity: 0.7;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-110vh) translateX(-30px) scale(0.2);
+            }
+        }
+
+        /* Final burst */
+        .burst-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 30;
+            font-size: 1.8rem;
+            animation: burstOut 2.5s cubic-bezier(0.25, 0, 0, 1) forwards;
+            text-shadow: 0 0 30px rgba(255, 200, 60, 0.8);
+        }
+        @keyframes burstOut {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0.3);
+            }
+            40% {
+                opacity: 1;
+                transform: translate(var(--bx), var(--by)) scale(1.3);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--bx), calc(var(--by) - 200px)) scale(0.1);
+            }
+        }
+
+        /* Audio button */
+        #audio-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 50;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(212, 175, 55, 0.6);
+            background: rgba(15, 15, 15, 0.8);
+            color: var(--gold);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        #audio-btn:active {
+            background: rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+            transform: scale(0.9);
+        }
+        #audio-btn.muted {
+            opacity: 0.5;
+            border-color: rgba(245, 245, 245, 0.3);
+            color: rgba(245, 245, 245, 0.5);
+        }
+
+        /* Tap indicator */
+        .tap-indicator {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 6;
+            font-family: 'Playfair Display', serif;
+            color: rgba(245, 245, 245, 0.5);
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            animation: hintPulse 2.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @media (max-width: 380px) {
+            .scene {
+                width: 94%;
+                padding: 12px;
+            }
+            .memory-photo {
+                width: 82vw;
+                height: 60vw;
+                max-height: 240px;
+            }
+            .puzzle-container {
+                width: 250px;
+                height: 230px;
+                gap: 30px;
+            }
+            .heart-half {
+                width: 80px;
+                height: 130px;
+            }
+            .glow-btn {
+                padding: 12px 30px;
+                font-size: 0.95rem;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Floating flowers -->
-        <div class="flower" style="top: 10%; left: 5%;">🌸</div>
-        <div class="flower" style="top: 15%; right: 7%;">🌹</div>
-        <div class="flower" style="bottom: 20%; left: 8%;">💮</div>
-        <div class="flower" style="bottom: 15%; right: 5%;">🌺</div>
-        <div class="flower" style="top: 40%; left: 3%;">🌼</div>
-        <div class="flower" style="top: 35%; right: 3%;">🌷</div>
-        
-        <header>
-            <h1>For My Beautiful Penny</h1>
-            <p class="subtitle">A tribute to the most amazing woman in my life</p>
-        </header>
-        
-        <div class="photo-gallery">
-            <div class="photo-frame">
-                <img src="penny1.jpg" alt="Penny's beautiful smile" class="photo">
-            </div>
-            <div class="photo-frame">
-                <img src="penny2.jpg" alt="Penny's caring spirit" class="photo">
-            </div>
-            <div class="photo-frame">
-                <img src="penny3.jpg" alt="Penny's elegance" class="photo">
-            </div>
+
+    <canvas id="particle-canvas"></canvas>
+    <div class="ambient-glow"></div>
+
+    <button id="audio-btn" class="muted" aria-label="Toggle music">♪</button>
+
+    <div id="main-container">
+        <!-- Scene 0: Intro -->
+        <div class="scene active" id="scene-intro">
+            <p class="scene-title" id="intro-line1" style="opacity:0;">Hi Melody…</p>
+            <p class="scene-text italic" id="intro-line2" style="opacity:0;margin-top:12px;">This is our story</p>
+            <button class="glow-btn" id="btn-begin" style="opacity:0;transition:opacity 0.8s ease;">Tap to Begin</button>
         </div>
-        
-        <div class="poem-section">
-            <h2 class="poem-title">A Poem for Penny</h2>
-            <div class="poem">
-                <p class="poem-line">In a world so vast, our paths did cross,</p>
-                <p class="poem-line">Finding you, my love, was my greatest gain.</p>
-                <p class="poem-line">Your smile, like sunshine, melts away the frost,</p>
-                <p class="poem-line">And eases all my worry, stress, and pain.</p>
-                <p class="poem-line"></p>
-                <p class="poem-line">Your caring spirit, a gentle, warming light,</p>
-                <p class="poem-line">Guides me through darkness, makes everything right.</p>
-                <p class="poem-line">Your laughter is music, a sweet, joyful sound,</p>
-                <p class="poem-line">In your embrace, true happiness is found.</p>
-                <p class="poem-line"></p>
-                <p class="poem-line">With every day, my love for you just grows,</p>
-                <p class="poem-line">Like a lovely garden, or a river that flows.</p>
-                <p class="poem-line">You're my dream come true, my heart's delight,</p>
-                <p class="poem-line">My beautiful Penny, shining ever so bright.</p>
-            </div>
+
+        <!-- Scene 1: Meeting -->
+        <div class="scene" id="scene-meeting">
+            <p class="scene-text from-left" id="meet-line1"></p>
+            <p class="scene-text from-right" id="meet-line2"></p>
+            <p class="scene-text zoom-in" id="meet-line3"></p>
         </div>
-        
-        <div class="music-player">
-            <h3 class="music-title">Our Song: This is by Ella mai</h3>
-            <audio controls style="width: 100%; max-width: 400px;">
-                <source src="penny.aac" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            <p><em>Note: This is a sample audio. Replace with your actual song.</em></p>
+
+        <!-- Scene 2: Separation -->
+        <div class="scene" id="scene-separation">
+            <p class="scene-text from-left" id="sep-line1"></p>
+            <p class="scene-text italic from-right" id="sep-line2"></p>
+            <p class="scene-text zoom-in" id="sep-line3"></p>
         </div>
-        
-        <div class="love-symbols">
-            <div class="symbol">
-                <div class="ring"></div>
-                <p>Our Future</p>
-            </div>
-            <div class="symbol">
-                <i class="fas fa-heart"></i>
-                <p>Everlasting Love</p>
-            </div>
-            <div class="symbol">
-                <i class="fas fa-kiss-wink-heart"></i>
-                <p>My Happiness</p>
-            </div>
+
+        <!-- Scene 3: Reconnection -->
+        <div class="scene" id="scene-reconnect">
+            <p class="scene-text from-right" id="recon-line1"></p>
+            <p class="scene-text highlight" id="recon-line2"></p>
+            <p class="scene-text from-left" id="recon-line3"></p>
         </div>
-        
-        <footer>
-            <p>With all my love, forever and always</p>
-            <p>Your husband, Vhuthu <span class="heart">❤️</span></p>
-        </footer>
+
+        <!-- Scene 4: Love Growth -->
+        <div class="scene" id="scene-love">
+            <p class="scene-text zoom-in" id="love-line1"></p>
+            <p class="scene-text from-left" id="love-line2"></p>
+            <p class="scene-text highlight" id="love-line3"></p>
+        </div>
+
+        <!-- Scene 5: Deep Emotion + Hold -->
+        <div class="scene" id="scene-deep">
+            <p class="scene-text from-right" id="deep-line1"></p>
+            <div id="hold-area">
+                <span class="hold-label">Hold here to reveal…</span>
+                <p id="hold-reveal-text"></p>
+            </div>
+            <p class="scene-text zoom-in" id="deep-line2" style="opacity:0;"></p>
+        </div>
+
+        <!-- Scene 6: Final -->
+        <div class="scene" id="scene-final">
+            <p class="scene-title" id="final-line1" style="opacity:0;">I love you, Melody.</p>
+            <button class="glow-btn" id="btn-final" style="opacity:0;">Tap Here ❤️</button>
+            <p class="scene-text highlight" id="final-whisper" style="opacity:0;">Forever yours.</p>
+        </div>
     </div>
 
+    <!-- Memory Photos -->
+    <div class="memory-photo" id="memory-photo-1">
+        <div class="photo-inner">🌟✨</div>
+        <span class="photo-label">The moment we met</span>
+    </div>
+    <div class="memory-photo" id="memory-photo-2">
+        <div class="photo-inner">💫🌙</div>
+        <span class="photo-label">Thinking of you</span>
+    </div>
+    <div class="memory-photo" id="memory-photo-3">
+        <div class="photo-inner">🔥💖</div>
+        <span class="photo-label">When everything changed</span>
+    </div>
+    <span class="swipe-hint" id="swipe-hint" style="opacity:0;">← swipe through memories →</span>
+
+    <!-- Heart Puzzle Overlay -->
+    <div id="puzzle-overlay">
+        <div class="puzzle-container" id="puzzle-container">
+            <div class="heart-half left-half" id="heart-left"></div>
+            <div class="heart-half right-half" id="heart-right"></div>
+        </div>
+        <p class="puzzle-msg" id="puzzle-msg">Bring them together… 💛</p>
+    </div>
+
+    <!-- Tap indicator -->
+    <div class="tap-indicator" id="tap-indicator">tap to continue</div>
+
     <script>
-        // Poem animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const poemLines = document.querySelectorAll('.poem-line');
-            
-            function animatePoem() {
-                poemLines.forEach((line, index) => {
+        (function() {
+            // ───────────────────────────────────
+            // PARTICLE BACKGROUND
+            // ───────────────────────────────────
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const MAX_PARTICLES = 90;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                    this.y = Math.random() * canvas.height;
+                }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = -10;
+                    this.size = Math.random() * 2.2 + 0.6;
+                    this.speedY = Math.random() * 0.35 + 0.1;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.7 + 0.2;
+                    this.twinkleSpeed = Math.random() * 0.02 + 0.005;
+                    this.twinkleOffset = Math.random() * Math.PI * 2;
+                    this.hue = Math.random() < 0.3 ? 'gold' : 'white';
+                }
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX + Math.sin(this.y * 0.01 + this.twinkleOffset) * 0.15;
+                    if (this.y > canvas.height + 10) {
+                        this.reset();
+                        this.y = -10;
+                    }
+                    if (this.x < -10) this.x = canvas.width + 10;
+                    if (this.x > canvas.width + 10) this.x = -10;
+                }
+                draw() {
+                    const flicker = Math.sin(Date.now() * this.twinkleSpeed + this.twinkleOffset) * 0.35 + 0.65;
+                    const alpha = this.opacity * flicker;
+                    const glow = this.hue === 'gold' ?
+                        `rgba(212,175,55,${alpha})` :
+                        `rgba(200,220,240,${alpha})`;
+                    ctx.fillStyle = glow;
+                    ctx.shadowColor = this.hue === 'gold' ?
+                        'rgba(212,175,55,0.8)' :
+                        'rgba(160,200,230,0.6)';
+                    ctx.shadowBlur = this.size * 4;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < MAX_PARTICLES; i++) {
+                const p = new Particle();
+                p.y = Math.random() * canvas.height;
+                particles.push(p);
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update();
+                    p.draw(); });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // ───────────────────────────────────
+            // AUDIO SETUP
+            // ───────────────────────────────────
+            const audioBtn = document.getElementById('audio-btn');
+            let audioCtx = null;
+            let ambientOsc = null;
+            let ambientGain = null;
+            let isPlaying = false;
+            let isMuted = true;
+
+            function initAudio() {
+                if (!audioCtx) {
+                    audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                if (!ambientOsc) {
+                    ambientGain = audioCtx.createGain();
+                    ambientGain.gain.value = 0;
+                    ambientGain.connect(audioCtx.destination);
+
+                    const osc1 = audioCtx.createOscillator();
+                    osc1.type = 'sine';
+                    osc1.frequency.value = 220;
+                    const osc2 = audioCtx.createOscillator();
+                    osc2.type = 'sine';
+                    osc2.frequency.value = 277.18;
+                    const osc3 = audioCtx.createOscillator();
+                    osc3.type = 'sine';
+                    osc3.frequency.value = 329.63;
+
+                    const merge = audioCtx.createGain();
+                    merge.gain.value = 0.25;
+                    osc1.connect(merge);
+                    osc2.connect(merge);
+                    osc3.connect(merge);
+                    merge.connect(ambientGain);
+
+                    osc1.start();
+                    osc2.start();
+                    osc3.start();
+                    ambientOsc = { osc1, osc2, osc3, merge };
+                }
+            }
+
+            function fadeInAudio() {
+                initAudio();
+                if (ambientGain) {
+                    ambientGain.gain.setValueAtTime(ambientGain.gain.value, audioCtx.currentTime);
+                    ambientGain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 2.5);
+                }
+                isPlaying = true;
+                isMuted = false;
+                audioBtn.classList.remove('muted');
+                audioBtn.textContent = '♪';
+            }
+
+            function fadeOutAudio() {
+                if (ambientGain) {
+                    ambientGain.gain.setValueAtTime(ambientGain.gain.value, audioCtx.currentTime);
+                    ambientGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5);
+                }
+                isPlaying = false;
+                isMuted = true;
+                audioBtn.classList.add('muted');
+                audioBtn.textContent = '♪';
+            }
+
+            audioBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isMuted) {
+                    fadeInAudio();
+                } else {
+                    fadeOutAudio();
+                }
+            });
+
+            // ───────────────────────────────────
+            // STORY STATE MACHINE
+            // ───────────────────────────────────
+            const scenes = {
+                intro: document.getElementById('scene-intro'),
+                meeting: document.getElementById('scene-meeting'),
+                separation: document.getElementById('scene-separation'),
+                reconnect: document.getElementById('scene-reconnect'),
+                love: document.getElementById('scene-love'),
+                deep: document.getElementById('scene-deep'),
+                final: document.getElementById('scene-final'),
+            };
+
+            const memoryPhotos = {
+                photo1: document.getElementById('memory-photo-1'),
+                photo2: document.getElementById('memory-photo-2'),
+                photo3: document.getElementById('memory-photo-3'),
+            };
+            const swipeHint = document.getElementById('swipe-hint');
+            const tapIndicator = document.getElementById('tap-indicator');
+            let currentMemoryIndex = 0;
+            const memoryKeys = ['photo1', 'photo2', 'photo3'];
+            let activeMemory = null;
+
+            function showMemory(index) {
+                if (activeMemory) {
+                    memoryPhotos[activeMemory].classList.remove('show');
+                    memoryPhotos[activeMemory].classList.add('hide');
                     setTimeout(() => {
-                        line.style.opacity = 1;
-                        line.style.transform = 'translateY(0)';
-                    }, 1000 * index);
+                        memoryPhotos[activeMemory].classList.remove('hide');
+                    }, 500);
+                }
+                const key = memoryKeys[index];
+                memoryPhotos[key].classList.remove('hide');
+                memoryPhotos[key].classList.add('show');
+                activeMemory = key;
+                currentMemoryIndex = index;
+                swipeHint.style.opacity = '1';
+                setTimeout(() => { swipeHint.style.opacity = '0'; }, 3500);
+            }
+
+            function hideAllMemories() {
+                Object.values(memoryPhotos).forEach(p => {
+                    p.classList.remove('show');
+                    p.classList.add('hide');
+                    setTimeout(() => p.classList.remove('hide'), 500);
+                });
+                activeMemory = null;
+                swipeHint.style.opacity = '0';
+            }
+
+            function transitionScene(fromId, toId, callback) {
+                if (fromId && scenes[fromId]) {
+                    scenes[fromId].classList.add('fading-out');
+                    scenes[fromId].classList.remove('active');
+                    setTimeout(() => scenes[fromId].classList.remove('fading-out'), 600);
+                }
+                setTimeout(() => {
+                    if (toId && scenes[toId]) {
+                        scenes[toId].classList.add('active');
+                        scenes[toId].style.transform = 'translateY(0)';
+                    }
+                    if (callback) callback();
+                }, fromId ? 400 : 100);
+            }
+
+            // Hide all scenes except intro initially
+            Object.keys(scenes).forEach(k => {
+                if (k !== 'intro') scenes[k].classList.remove('active');
+            });
+
+            // ───────────────────────────────────
+            // TYPING EFFECT
+            // ───────────────────────────────────
+            function typeText(element, text, speed = 35, callback) {
+                element.textContent = '';
+                element.style.opacity = '1';
+                let i = 0;
+
+                function type() {
+                    if (i < text.length) {
+                        element.textContent += text.charAt(i);
+                        i++;
+                        const delay = text.charAt(i - 1) === '.' || text.charAt(i - 1) === ',' || text
+                            .charAt(i - 1) === '…' ? speed * 4 : speed;
+                        setTimeout(type, delay);
+                    } else {
+                        if (callback) setTimeout(callback, 300);
+                    }
+                }
+                type();
+            }
+
+            function fadeInText(element, text, delay = 400, callback) {
+                element.textContent = text;
+                element.style.opacity = '0';
+                element.style.transition = 'opacity 0.8s ease';
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    if (callback) setTimeout(callback, 600);
+                }, delay);
+            }
+
+            // ───────────────────────────────────
+            // INTRO SEQUENCE
+            // ───────────────────────────────────
+            const introLine1 = document.getElementById('intro-line1');
+            const introLine2 = document.getElementById('intro-line2');
+            const btnBegin = document.getElementById('btn-begin');
+
+            setTimeout(() => {
+                fadeInText(introLine1, 'Hi Melody…', 200, () => {
+                    setTimeout(() => {
+                        fadeInText(introLine2, 'This is our story', 300, () => {
+                            setTimeout(() => {
+                                btnBegin.style.opacity = '1';
+                                btnBegin.style.transition = 'opacity 0.8s ease';
+                            }, 400);
+                        });
+                    }, 600);
+                });
+            }, 800);
+
+            btnBegin.addEventListener('click', function(e) {
+                // Ripple
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                const rect = btnBegin.getBoundingClientRect();
+                ripple.style.left = (e.clientX - rect.left) + 'px';
+                ripple.style.top = (e.clientY - rect.top) + 'px';
+                ripple.style.width = ripple.style.height = '60px';
+                btnBegin.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 700);
+
+                // Fade out intro
+                fadeOutAudio();
+                setTimeout(() => fadeInAudio(), 300);
+                transitionScene('intro', null, () => {
+                    hideAllMemories();
+                    startChapter1();
+                });
+                tapIndicator.style.opacity = '0';
+            });
+
+            // ───────────────────────────────────
+            // CHAPTER 1: MEETING
+            // ───────────────────────────────────
+            function startChapter1() {
+                transitionScene(null, 'meeting', () => {
+                    tapIndicator.style.opacity = '1';
+                    const l1 = document.getElementById('meet-line1');
+                    const l2 = document.getElementById('meet-line2');
+                    const l3 = document.getElementById('meet-line3');
+                    l1.textContent = '';
+                    l2.textContent = '';
+                    l3.textContent = '';
+                    l1.style.opacity = '0';
+                    l2.style.opacity = '0';
+                    l3.style.opacity = '0';
+
+                    typeText(l1, 'I remember the first time I saw you last year…', 30, () => {
+                        setTimeout(() => {
+                            l1.style.opacity = '1';
+                            typeText(l2, 'There was something about you — a quiet curiosity I couldn\'t shake.',
+                                28, () => {
+                                    setTimeout(() => {
+                                        l2.style.opacity = '1';
+                                        typeText(l3,
+                                            'I didn\'t know it then, but that moment would stay with me.',
+                                            30, () => {
+                                                l3.style.opacity = '1';
+                                                setupTapToAdvance('meeting',
+                                                'separation',
+                                                startChapter2, () => showMemory(0));
+                                            });
+                                    }, 200);
+                                });
+                        }, 200);
+                    });
                 });
             }
-            
-            // Start animation when page loads
-            setTimeout(animatePoem, 1000);
-            
-            // Photo gallery animation
-            const photoFrames = document.querySelectorAll('.photo-frame');
-            photoFrames.forEach((frame, index) => {
-                frame.style.animationDelay = `${index * 0.3}s`;
+
+            // ───────────────────────────────────
+            // CHAPTER 2: SEPARATION
+            // ───────────────────────────────────
+            function startChapter2() {
+                hideAllMemories();
+                transitionScene('meeting', 'separation', () => {
+                    tapIndicator.style.opacity = '1';
+                    const l1 = document.getElementById('sep-line1');
+                    const l2 = document.getElementById('sep-line2');
+                    const l3 = document.getElementById('sep-line3');
+                    l1.textContent = '';
+                    l2.textContent = '';
+                    l3.textContent = '';
+                    l1.style.opacity = '0';
+                    l2.style.opacity = '0';
+                    l3.style.opacity = '0';
+
+                    typeText(l1, 'Then life pulled us apart.', 32, () => {
+                        l1.style.opacity = '1';
+                        setTimeout(() => {
+                            typeText(l2, 'We lost connection. Days turned into silence.', 30, () => {
+                                l2.style.opacity = '1';
+                                setTimeout(() => {
+                                    typeText(l3,
+                                        'Something felt incomplete — a quiet ache I carried without knowing why.',
+                                        28, () => {
+                                            l3.style.opacity = '1';
+                                            setupTapToAdvance('separation',
+                                                'reconnect',
+                                                startChapter3, () => showMemory(1));
+                                        });
+                                }, 300);
+                            });
+                        }, 300);
+                    });
+                });
+            }
+
+            // ───────────────────────────────────
+            // CHAPTER 3: RECONNECTION
+            // ───────────────────────────────────
+            function startChapter3() {
+                hideAllMemories();
+                transitionScene('separation', 'reconnect', () => {
+                    tapIndicator.style.opacity = '1';
+                    const l1 = document.getElementById('recon-line1');
+                    const l2 = document.getElementById('recon-line2');
+                    const l3 = document.getElementById('recon-line3');
+                    l1.textContent = '';
+                    l2.textContent = '';
+                    l3.textContent = '';
+                    l1.style.opacity = '0';
+                    l2.style.opacity = '0';
+                    l3.style.opacity = '0';
+
+                    typeText(l1, 'And then — this year — we met again.', 30, () => {
+                        l1.style.opacity = '1';
+                        setTimeout(() => {
+                            fadeInText(l2, 'Everything changed.', 400, () => {
+                                setTimeout(() => {
+                                    typeText(l3,
+                                        'It was as if the universe had been waiting for this moment all along.',
+                                        28, () => {
+                                            l3.style.opacity = '1';
+                                            setupTapToAdvance('reconnect', 'love',
+                                                startChapter4, () => showMemory(2));
+                                        });
+                                }, 400);
+                            });
+                        }, 300);
+                    });
+                });
+            }
+
+            // ───────────────────────────────────
+            // CHAPTER 4: LOVE GROWTH
+            // ───────────────────────────────────
+            function startChapter4() {
+                hideAllMemories();
+                transitionScene('reconnect', 'love', () => {
+                    tapIndicator.style.opacity = '1';
+                    const l1 = document.getElementById('love-line1');
+                    const l2 = document.getElementById('love-line2');
+                    const l3 = document.getElementById('love-line3');
+                    l1.textContent = '';
+                    l2.textContent = '';
+                    l3.textContent = '';
+                    l1.style.opacity = '0';
+                    l2.style.opacity = '0';
+                    l3.style.opacity = '0';
+
+                    typeText(l1, 'Slowly, you became important to me in ways I never expected.', 30, () => {
+                        l1.style.opacity = '1';
+                        setTimeout(() => {
+                            typeText(l2,
+                                'Your laugh, your presence — they began to fill spaces I didn\'t know were empty.',
+                                28, () => {
+                                    l2.style.opacity = '1';
+                                    setTimeout(() => {
+                                        fadeInText(l3, 'You mean more to me than words can hold.',
+                                        400, () => {
+                                            l3.style.opacity = '1';
+                                            setupTapToAdvance('love', 'deep',
+                                                startChapter5, null);
+                                        });
+                                    }, 400);
+                                });
+                        }, 300);
+                    });
+                });
+            }
+
+            // ───────────────────────────────────
+            // CHAPTER 5: DEEP EMOTION + HOLD + PUZZLE
+            // ───────────────────────────────────
+            function startChapter5() {
+                hideAllMemories();
+                transitionScene('love', 'deep', () => {
+                    tapIndicator.style.opacity = '0';
+                    const l1 = document.getElementById('deep-line1');
+                    const holdArea = document.getElementById('hold-area');
+                    const holdReveal = document.getElementById('hold-reveal-text');
+                    const holdLabel = holdArea.querySelector('.hold-label');
+                    const deepLine2 = document.getElementById('deep-line2');
+                    l1.textContent = '';
+                    l1.style.opacity = '0';
+                    holdReveal.textContent = '';
+                    holdReveal.classList.remove('revealing');
+                    holdLabel.style.opacity = '1';
+                    deepLine2.style.opacity = '0';
+                    deepLine2.textContent = '';
+
+                    typeText(l1, 'There\'s something I need you to know…', 32, () => {
+                        l1.style.opacity = '1';
+                        holdArea.style.opacity = '1';
+                        holdArea.style.pointerEvents = 'auto';
+                        setupHoldReveal(holdArea, holdReveal, holdLabel, deepLine2);
+                    });
+                });
+            }
+
+            function setupHoldReveal(holdArea, holdReveal, holdLabel, deepLine2) {
+                let holdTimer = null;
+                let revealProgress = 0;
+                const fullMessage =
+                    'You are the most beautiful surprise life has given me. Every moment with you feels like coming home to a place I never knew existed.';
+                const revealSteps = [
+                    'You are the most beautiful surprise life has given me.',
+                    'You are the most beautiful surprise life has given me. Every moment with you feels like coming home…',
+                    fullMessage,
+                ];
+                let currentStep = -1;
+                let isRevealed = false;
+
+                function startHold(e) {
+                    e.preventDefault();
+                    holdArea.classList.add('pressed');
+                    holdLabel.style.opacity = '0.4';
+                    revealProgress = 0;
+                    currentStep = -1;
+                    holdReveal.textContent = '';
+                    holdReveal.classList.add('revealing');
+                    holdTimer = setInterval(() => {
+                        revealProgress += 1;
+                        const stepIndex = Math.min(
+                            Math.floor(revealProgress / 35),
+                            revealSteps.length - 1
+                        );
+                        if (stepIndex > currentStep) {
+                            currentStep = stepIndex;
+                            holdReveal.textContent = revealSteps[currentStep];
+                        }
+                        if (revealProgress >= 105 && !isRevealed) {
+                            isRevealed = true;
+                            clearInterval(holdTimer);
+                            holdArea.classList.remove('pressed');
+                            holdLabel.style.opacity = '0';
+                            holdReveal.textContent = fullMessage;
+                            setTimeout(() => {
+                                deepLine2.textContent =
+                                    'I am vulnerable with you — and I wouldn\'t have it any other way.';
+                                deepLine2.style.opacity = '1';
+                                deepLine2.style.transition = 'opacity 1s ease';
+                                holdArea.style.pointerEvents = 'none';
+                                holdArea.style.opacity = '0.7';
+                                setTimeout(() => launchHeartPuzzle(), 1500);
+                            }, 800);
+                        }
+                    }, 100);
+                }
+
+                function endHold() {
+                    if (holdTimer && !isRevealed) {
+                        clearInterval(holdTimer);
+                        holdTimer = null;
+                        holdArea.classList.remove('pressed');
+                        if (revealProgress < 105) {
+                            holdLabel.style.opacity = '1';
+                        }
+                    }
+                }
+
+                holdArea.addEventListener('mousedown', startHold);
+                holdArea.addEventListener('touchstart', startHold, { passive: false });
+                holdArea.addEventListener('mouseup', endHold);
+                holdArea.addEventListener('mouseleave', endHold);
+                holdArea.addEventListener('touchend', endHold);
+                holdArea.addEventListener('touchcancel', endHold);
+                holdArea.style.opacity = '1';
+                holdArea.style.pointerEvents = 'auto';
+            }
+
+            // ───────────────────────────────────
+            // HEART PUZZLE
+            // ───────────────────────────────────
+            function launchHeartPuzzle() {
+                const overlay = document.getElementById('puzzle-overlay');
+                const container = document.getElementById('puzzle-container');
+                const heartLeft = document.getElementById('heart-left');
+                const heartRight = document.getElementById('heart-right');
+                const puzzleMsg = document.getElementById('puzzle-msg');
+                container.classList.remove('solved');
+                puzzleMsg.classList.remove('visible');
+                puzzleMsg.textContent = 'Bring them together… 💛';
+                overlay.classList.add('active');
+                setTimeout(() => puzzleMsg.classList.add('visible'), 600);
+
+                // Reset positions
+                heartLeft.style.transform = 'translate(0px, 0px)';
+                heartRight.style.transform = 'translate(0px, 0px)';
+                heartLeft.style.position = 'relative';
+                heartRight.style.position = 'relative';
+                heartLeft.style.left = '0px';
+                heartRight.style.left = '0px';
+                heartLeft.style.top = '0px';
+                heartRight.style.top = '0px';
+
+                let leftPos = { x: 0, y: 0 };
+                let rightPos = { x: 0, y: 0 };
+                let dragging = null;
+                let startMouse = { x: 0, y: 0 };
+                let startElemPos = { x: 0, y: 0 };
+
+                function getPos(el) {
+                    const style = window.getComputedStyle(el);
+                    const matrix = new DOMMatrixReadOnly(style.transform);
+                    return { x: matrix.m41, y: matrix.m42 };
+                }
+
+                function setPos(el, x, y) {
+                    el.style.transform = `translate(${x}px, ${y}px)`;
+                    el.style.transition = 'none';
+                }
+
+                function checkPuzzle() {
+                    const lp = getPos(heartLeft);
+                    const rp = getPos(heartRight);
+                    const dist = Math.hypot((lp.x + 50) - (rp.x + 50), (lp.y + 80) - (rp.y + 80));
+                    if (dist < 55) {
+                        // Solved!
+                        container.classList.add('solved');
+                        puzzleMsg.textContent = 'Our hearts belong together 💛';
+                        puzzleMsg.classList.add('visible');
+                        heartLeft.style.transition = 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+                        heartRight.style.transition = 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+                        heartLeft.style.transform = 'translate(-22px, 0px)';
+                        heartRight.style.transform = 'translate(22px, 0px)';
+                        heartLeft.style.pointerEvents = 'none';
+                        heartRight.style.pointerEvents = 'none';
+                        setTimeout(() => {
+                            overlay.classList.remove('active');
+                            puzzleMsg.classList.remove('visible');
+                            startFinalScene();
+                        }, 1800);
+                    }
+                }
+
+                function onStart(e, half) {
+                    e.preventDefault();
+                    dragging = half;
+                    const touch = e.touches ? e.touches[0] : e;
+                    startMouse = { x: touch.clientX, y: touch.clientY };
+                    const el = half === 'left' ? heartLeft : heartRight;
+                    const pos = getPos(el);
+                    startElemPos = { x: pos.x, y: pos.y };
+                    el.style.cursor = 'grabbing';
+                    el.style.zIndex = '25';
+                }
+
+                function onMove(e) {
+                    if (!dragging) return;
+                    e.preventDefault();
+                    const touch = e.touches ? e.touches[0] : e;
+                    const dx = touch.clientX - startMouse.x;
+                    const dy = touch.clientY - startMouse.y;
+                    const el = dragging === 'left' ? heartLeft : heartRight;
+                    const newX = startElemPos.x + dx;
+                    const newY = startElemPos.y + dy;
+                    setPos(el, newX, newY);
+                    if (dragging === 'left') leftPos = { x: newX, y: newY };
+                    else rightPos = { x: newX, y: newY };
+                    checkPuzzle();
+                }
+
+                function onEnd() {
+                    if (dragging) {
+                        const el = dragging === 'left' ? heartLeft : heartRight;
+                        el.style.cursor = 'grab';
+                        el.style.zIndex = '21';
+                        dragging = null;
+                    }
+                }
+
+                heartLeft.addEventListener('mousedown', (e) => onStart(e, 'left'));
+                heartLeft.addEventListener('touchstart', (e) => onStart(e, 'left'), { passive: false });
+                heartRight.addEventListener('mousedown', (e) => onStart(e, 'right'));
+                heartRight.addEventListener('touchstart', (e) => onStart(e, 'right'), { passive: false });
+
+                document.addEventListener('mousemove', onMove);
+                document.addEventListener('touchmove', onMove, { passive: false });
+                document.addEventListener('mouseup', onEnd);
+                document.addEventListener('touchend', onEnd);
+                document.addEventListener('touchcancel', onEnd);
+
+                // Store cleanup reference
+                window._puzzleCleanup = () => {
+                    document.removeEventListener('mousemove', onMove);
+                    document.removeEventListener('touchmove', onMove);
+                    document.removeEventListener('mouseup', onEnd);
+                    document.removeEventListener('touchend', onEnd);
+                    document.removeEventListener('touchcancel', onEnd);
+                };
+            }
+
+            // ───────────────────────────────────
+            // FINAL SCENE
+            // ───────────────────────────────────
+            function startFinalScene() {
+                if (window._puzzleCleanup) window._puzzleCleanup();
+                hideAllMemories();
+                transitionScene('deep', 'final', () => {
+                    tapIndicator.style.opacity = '0';
+                    const finalLine1 = document.getElementById('final-line1');
+                    const btnFinal = document.getElementById('btn-final');
+                    const finalWhisper = document.getElementById('final-whisper');
+                    finalLine1.style.opacity = '0';
+                    btnFinal.style.opacity = '0';
+                    finalWhisper.style.opacity = '0';
+
+                    setTimeout(() => {
+                        fadeInText(finalLine1, 'I love you, Melody.', 600, () => {
+                            setTimeout(() => {
+                                btnFinal.style.opacity = '1';
+                                btnFinal.style.transition = 'opacity 0.8s ease';
+                            }, 500);
+                        });
+                    }, 400);
+
+                    btnFinal.onclick = function(e) {
+                        const ripple = document.createElement('span');
+                        ripple.className = 'ripple';
+                        const rect = btnFinal.getBoundingClientRect();
+                        ripple.style.left = (e.clientX - rect.left) + 'px';
+                        ripple.style.top = (e.clientY - rect.top) + 'px';
+                        ripple.style.width = ripple.style.height = '60px';
+                        btnFinal.appendChild(ripple);
+                        setTimeout(() => ripple.remove(), 700);
+
+                        btnFinal.style.opacity = '0';
+                        btnFinal.style.pointerEvents = 'none';
+                        burstHearts();
+                        setTimeout(() => {
+                            fadeInText(finalWhisper, 'Forever yours.', 800);
+                            finalWhisper.style.opacity = '1';
+                        }, 1200);
+                    };
+                });
+            }
+
+            function burstHearts() {
+                const heartEmojis = ['❤️', '💛', '✨', '💫', '💖', '🌟', '💝', '🕊️', '💛', '❤️'];
+                const count = 50;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('span');
+                        heart.className = 'burst-heart';
+                        heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                        heart.style.left = centerX + 'px';
+                        heart.style.top = centerY + 'px';
+                        const angle = Math.random() * Math.PI * 2;
+                        const distance = 150 + Math.random() * 350;
+                        heart.style.setProperty('--bx', Math.cos(angle) * distance + 'px');
+                        heart.style.setProperty('--by', Math.sin(angle) * distance - 100 + 'px');
+                        heart.style.fontSize = (1.2 + Math.random() * 2.5) + 'rem';
+                        document.body.appendChild(heart);
+                        setTimeout(() => heart.remove(), 2600);
+                    }, i * 35);
+                }
+
+                // Extra glow flash
+                const flash = document.createElement('div');
+                flash.style.cssText = `
+                    position:fixed;top:0;left:0;width:100%;height:100%;
+                    background:radial-gradient(circle,rgba(212,175,55,0.35) 0%,transparent 70%);
+                    z-index:29;pointer-events:none;transition:opacity 1.5s ease-out;
+                    opacity:1;
+                `;
+                document.body.appendChild(flash);
+                setTimeout(() => { flash.style.opacity = '0'; }, 100);
+                setTimeout(() => flash.remove(), 1600);
+            }
+
+            // ───────────────────────────────────
+            // TAP TO ADVANCE HELPER
+            // ───────────────────────────────────
+            function setupTapToAdvance(currentSceneId, nextSceneId, startNextFn, memoryCallback) {
+                const currentScene = scenes[currentSceneId];
+                let hasAdvanced = false;
+
+                function advance(e) {
+                    if (hasAdvanced) return;
+                    if (e.target.closest('.glow-btn') || e.target.closest('#hold-area') || e.target.closest(
+                            '.heart-half') || e.target.closest('#audio-btn') || e.target.closest(
+                            '.floating-heart') || e.target.closest('.memory-photo')) return;
+                    hasAdvanced = true;
+                    tapIndicator.style.opacity = '0';
+                    if (memoryCallback) memoryCallback();
+                    if (startNextFn) startNextFn();
+                    currentScene.removeEventListener('click', advance);
+                    document.removeEventListener('touchend', advance);
+                }
+
+                // Small delay to prevent immediate trigger
+                setTimeout(() => {
+                    currentScene.addEventListener('click', advance);
+                    document.addEventListener('touchend', function touchAdv(e) {
+                        if (e.target.closest('#' + currentSceneId) && !e.target.closest('.glow-btn') && !e
+                            .target.closest('#hold-area') && !e.target.closest('.heart-half') && !e.target
+                            .closest('#audio-btn') && !e.target.closest('.floating-heart') && !e.target
+                            .closest('.memory-photo')) {
+                            advance(e);
+                            document.removeEventListener('touchend', touchAdv);
+                        }
+                    });
+                }, 600);
+            }
+
+            // ───────────────────────────────────
+            // SWIPE THROUGH MEMORIES
+            // ───────────────────────────────────
+            let swipeStartX = 0;
+            document.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.memory-photo') || e.target.closest('#swipe-hint') || activeMemory) {
+                    swipeStartX = e.touches[0].clientX;
+                }
+            }, { passive: true });
+
+            document.addEventListener('touchend', function(e) {
+                if (!activeMemory) return;
+                const dx = e.changedTouches[0].clientX - swipeStartX;
+                if (Math.abs(dx) > 60) {
+                    if (dx < -40 && currentMemoryIndex < memoryKeys.length - 1) {
+                        showMemory(currentMemoryIndex + 1);
+                    } else if (dx > 40 && currentMemoryIndex > 0) {
+                        showMemory(currentMemoryIndex - 1);
+                    }
+                }
             });
-        });
+
+            // ───────────────────────────────────
+            // FLOATING HEARTS (AMBIENT)
+            // ───────────────────────────────────
+            function spawnFloatingHeart() {
+                const heart = document.createElement('span');
+                heart.className = 'floating-heart';
+                heart.textContent = ['💛', '✨', '💫', '🕊️'][Math.floor(Math.random() * 4)];
+                heart.style.left = (5 + Math.random() * 85) + '%';
+                heart.style.bottom = '-30px';
+                heart.style.fontSize = (1 + Math.random() * 2) + 'rem';
+                heart.style.animationDuration = (5 + Math.random() * 8) + 's';
+                document.body.appendChild(heart);
+
+                heart.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    heart.style.transform = 'scale(2.2)';
+                    heart.style.textShadow = '0 0 40px rgba(255,200,70,0.95)';
+                    heart.style.transition = 'transform 0.25s ease, text-shadow 0.25s ease';
+                    setTimeout(() => {
+                        heart.style.opacity = '0';
+                        heart.style.transform = 'scale(0.2)';
+                        heart.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    }, 300);
+                    setTimeout(() => heart.remove(), 800);
+                });
+
+                heart.addEventListener('touchend', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    heart.style.transform = 'scale(2.2)';
+                    heart.style.textShadow = '0 0 40px rgba(255,200,70,0.95)';
+                    heart.style.transition = 'transform 0.25s ease, text-shadow 0.25s ease';
+                    setTimeout(() => {
+                        heart.style.opacity = '0';
+                        heart.style.transform = 'scale(0.2)';
+                        heart.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    }, 300);
+                    setTimeout(() => heart.remove(), 800);
+                });
+
+                setTimeout(() => {
+                    if (heart.parentNode) heart.remove();
+                }, 9000);
+            }
+
+            setInterval(() => {
+                if (document.querySelectorAll('.floating-heart').length < 8) {
+                    spawnFloatingHeart();
+                }
+            }, 2500);
+            // Initial hearts
+            setTimeout(spawnFloatingHeart, 3000);
+            setTimeout(spawnFloatingHeart, 5000);
+            setTimeout(spawnFloatingHeart, 7000);
+
+            // ───────────────────────────────────
+            // INITIAL SETUP
+            // ───────────────────────────────────
+            tapIndicator.style.opacity = '1';
+            // Hide all non-intro scenes
+            Object.keys(scenes).forEach(k => {
+                if (k !== 'intro') scenes[k].classList.remove('active');
+            });
+            scenes['intro'].classList.add('active');
+            document.getElementById('hold-area').style.opacity = '0';
+            document.getElementById('hold-area').style.pointerEvents = 'none';
+
+            console.log('✨ For Melody — with all my heart.');
+        })();
     </script>
 </body>
 </html>
