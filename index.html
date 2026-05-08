@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,12 +60,12 @@
             position: absolute;
             width: 86%;
             max-width: 540px;
-            background: rgba(18, 18, 20, 0.78);
+            background: rgba(18, 18, 20, 0.82);
             backdrop-filter: blur(12px);
             border-radius: 2rem;
             padding: 2rem 1.8rem;
             text-align: center;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.35);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(212, 175, 55, 0.1) inset;
             transition: transform 0.4s ease, opacity 0.5s ease;
             opacity: 0;
@@ -119,29 +120,31 @@
         }
 
         .gold-button {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1.2px solid #d4af37;
-            padding: 12px 32px;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1.5px solid #d4af37;
+            padding: 14px 36px;
             border-radius: 60px;
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.12rem;
-            font-weight: 500;
-            letter-spacing: 0.1em;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
             color: #ecd67a;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             margin-top: 1.2rem;
+            backdrop-filter: blur(4px);
         }
         .gold-button:active {
             transform: scale(0.96);
-            background: rgba(212, 175, 55, 0.25);
-            box-shadow: 0 0 18px rgba(212, 175, 55, 0.6);
+            background: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            border-color: #f0d070;
         }
 
-        /* beautiful press & hold button */
+        /* press & hold button */
         .reveal-button {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(170, 130, 40, 0.25));
-            border: 1.5px solid #e6c468;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(170, 130, 40, 0.3));
+            border: 1.8px solid #e6c468;
             border-radius: 3rem;
             padding: 1.2rem 0.8rem;
             margin: 1.4rem 0 0.8rem;
@@ -149,14 +152,14 @@
             cursor: pointer;
         }
         .reveal-button.pressed {
-            background: rgba(212, 175, 55, 0.4);
+            background: rgba(212, 175, 55, 0.45);
             border-color: #ffdf80;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 28px rgba(212, 175, 55, 0.6);
             transform: scale(0.98);
         }
         .reveal-label {
             font-size: 0.9rem;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             color: #dbbf6e;
             text-transform: uppercase;
         }
@@ -169,16 +172,16 @@
             min-height: 4rem;
         }
 
-        /* photo slides (icons, no emojis) */
+        /* photo slides with actual images */
         .photo-slide {
             position: fixed;
             bottom: 14%;
             left: 50%;
             transform: translateX(-50%) scale(0.9);
-            width: 70vw;
-            max-width: 280px;
-            background: #17181cd9;
-            backdrop-filter: blur(8px);
+            width: 72vw;
+            max-width: 300px;
+            background: #121218e6;
+            backdrop-filter: blur(12px);
             border-radius: 28px;
             border: 1px solid #d4af37;
             box-shadow: 0 20px 35px rgba(0, 0, 0, 0.5);
@@ -187,21 +190,29 @@
             transition: opacity 0.4s, transform 0.3s ease;
             pointer-events: none;
             text-align: center;
-            padding: 16px 10px;
+            padding: 16px 12px 18px;
         }
         .photo-slide.show {
             opacity: 1;
             transform: translateX(-50%) scale(1);
             pointer-events: auto;
         }
-        .photo-icon {
-            font-size: 3.2rem;
-            margin-bottom: 6px;
+        .photo-img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            max-height: 220px;
+            object-fit: cover;
+            display: block;
+            margin-bottom: 8px;
+            border: 1px solid rgba(212,175,55,0.4);
         }
         .photo-caption {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #e0cf9c;
             letter-spacing: 0.04em;
+            margin-top: 6px;
+            font-style: italic;
         }
         .swipe-hint {
             font-size: 0.7rem;
@@ -227,8 +238,8 @@
         .puzzle-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(8, 8, 12, 0.92);
-            backdrop-filter: blur(8px);
+            background: rgba(8, 8, 12, 0.94);
+            backdrop-filter: blur(10px);
             z-index: 30;
             display: flex;
             align-items: center;
@@ -259,13 +270,14 @@
             clip-path: polygon(50% 0%, 100% 20%, 100% 45%, 80% 70%, 50% 100%, 20% 70%, 0% 45%, 0% 20%);
             cursor: grab;
             transition: filter 0.2s;
-            box-shadow: 0 0 15px rgba(230, 190, 70, 0.4);
+            box-shadow: 0 0 18px rgba(230, 190, 70, 0.5);
         }
-        .piece:active { cursor: grabbing; filter: brightness(1.1); }
+        .piece:active { cursor: grabbing; filter: brightness(1.15); }
         .puzzle-message {
             margin-top: 32px;
             color: #f3e3b5;
             font-size: 1rem;
+            font-family: 'Cormorant Garamond', serif;
         }
 
         .floating-icon {
@@ -289,12 +301,12 @@
             position: fixed;
             top: 18px;
             right: 18px;
-            width: 44px;
-            height: 44px;
-            border-radius: 40px;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(6px);
-            border: 1px solid #bc9a44;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid #bc9a44;
             color: #e0bf6a;
             display: flex;
             align-items: center;
@@ -303,11 +315,14 @@
             z-index: 40;
             cursor: pointer;
             font-family: monospace;
+            transition: all 0.2s;
         }
+        .music-control:active { transform: scale(0.92); }
         @media (max-width: 460px) {
             .card { padding: 1.5rem 1rem; }
             .story-text { font-size: 1rem; }
             .piece { width: 80px; height: 112px; }
+            .photo-slide { width: 80vw; }
         }
     </style>
 </head>
@@ -382,11 +397,21 @@
     </div>
 </div>
 
-<!-- photos: mellow one, mellow two, mellow three (icons) -->
+<!-- PHOTO MEMORIES: using melo1.jpg, melo2.jpg, melo3.jpg -->
 <div id="photoMemories">
-    <div class="photo-slide" id="melo1.jpg"><div class="photo-icon">📖✨</div><div class="photo-caption">mine</div><div class="swipe-hint">← → swipe</div></div>
-    <div class="photo-slide" id="melo2.jpg"><div class="photo-icon">🕯️🌙</div><div class="photo-caption">the healer of my pain </div></div>
-    <div class="photo-slide" id="photo.jpg"><div class="photo-icon">🔥💫</div><div class="photo-caption">I'll protect you from anything</div></div>
+    <div class="photo-slide" id="photo0">
+        <img class="photo-img" id="img0" alt="memory" src="melo1.jpg" onerror="this.style.display='none'; this.nextElementSibling?.style.display='block';">
+        <div class="photo-caption">mellow one</div>
+        <div class="swipe-hint">← → swipe</div>
+    </div>
+    <div class="photo-slide" id="photo1">
+        <img class="photo-img" id="img1" alt="memory" src="melo2.jpg" onerror="this.style.display='none'; this.nextElementSibling?.style.display='block';">
+        <div class="photo-caption">mellow two</div>
+    </div>
+    <div class="photo-slide" id="photo2">
+        <img class="photo-img" id="img2" alt="memory" src="melo3.jpg" onerror="this.style.display='none'; this.nextElementSibling?.style.display='block';">
+        <div class="photo-caption">mellow three</div>
+    </div>
 </div>
 
 <div class="tap-hint" id="globalTapHint">tap to continue story</div>
@@ -401,10 +426,8 @@
 
 <script>
     (function(){
-        // ----- MUSIC HANDLING: user can place their own audio file -----
-        // 1) Place your music file (e.g. "melody-song.mp3") in the same folder.
-        // 2) Uncomment the line below and set the correct filename.
-        const musicFileURL = "PARTYNEXTDOOR_-_Some_Of_Your_Love__Lyrics___come_give_me_some_of_your_love_(256k).mp3";   // <-- CHANGE THIS TO YOUR MUSIC FILE NAME
+        // ----- MUSIC: "PARTYNEXTDOOR_-_Some_Of_Your_Love__Lyrics___come_give_me_some_of_your_love_(256k).mp3"
+        const musicFileName = "PARTYNEXTDOOR_-_Some_Of_Your_Love__Lyrics___come_give_me_some_of_your_love_(256k).mp3";
         let audioElement = null;
         let musicEnabled = false;
         const musicBtn = document.getElementById('musicToggleBtn');
@@ -413,16 +436,15 @@
             if(audioElement) return;
             audioElement = new Audio();
             audioElement.loop = true;
-            audioElement.volume = 0.38;
-            // check if file exists (optional but safe)
-            audioElement.src = musicFileURL;
+            audioElement.volume = 0.35;
+            audioElement.src = musicFileName;
             audioElement.load();
         }
         
         function startMusic() {
             if(!audioElement) initMusic();
             if(audioElement && !musicEnabled) {
-                audioElement.play().catch(e => console.log("autoplay blocked, tap to enable music"));
+                audioElement.play().catch(e => console.log("tap to enable music"));
                 musicEnabled = true;
                 musicBtn.innerHTML = '♪';
                 musicBtn.style.opacity = '1';
@@ -452,7 +474,7 @@
             }
         });
         
-        // auto-start music on first user tap (respects browser policy)
+        // auto-start music on any user tap (first interaction)
         document.body.addEventListener('click', function once() {
             if(!audioElement) initMusic();
             if(!musicEnabled && audioElement) {
@@ -463,28 +485,25 @@
             document.body.removeEventListener('click', once);
         }, { once: true });
         
-        // ---------- WORD-BY-WORD ANIMATION (moving text) ----------
+        // ---------- WORD-BY-WORD ANIMATION ----------
         function typeTextWordByWord(element, fullText, onComplete) {
             if(!element) return;
             element.textContent = '';
             element.style.opacity = '1';
             const words = fullText.split(' ');
-            let index = 0;
+            let idx = 0;
             function addWord() {
-                if(index < words.length) {
-                    element.textContent += (index === 0 ? '' : ' ') + words[index];
-                    index++;
-                    const delay = (words[index-1].length > 5 ? 120 : 80);
+                if(idx < words.length) {
+                    element.textContent += (idx === 0 ? '' : ' ') + words[idx];
+                    idx++;
+                    const delay = (words[idx-1].length > 5) ? 110 : 70;
                     setTimeout(addWord, delay);
-                } else if(onComplete) {
-                    setTimeout(onComplete, 200);
-                }
+                } else if(onComplete) setTimeout(onComplete, 200);
             }
             addWord();
         }
         
-        // simpler type for short lines
-        function typeSentence(element, text, speed = 55, callback) {
+        function typeSentence(element, text, speed = 50, callback) {
             element.textContent = '';
             let i = 0;
             function type() {
@@ -497,8 +516,8 @@
             type();
         }
         
-        // ----- scene transition + tap to continue (fixed reliability)-----
-        let currentCard = 'intro';
+        // ----- SCENE MANAGEMENT (fixed click handlers) -----
+        let currentCardId = 'intro';
         const cards = {
             intro: document.getElementById('card-intro'),
             meeting: document.getElementById('card-meeting'),
@@ -509,123 +528,126 @@
             final: document.getElementById('card-final')
         };
         
-        function switchToCard(newId, onActivated) {
-            const old = cards[currentCard];
-            if(old) { old.classList.add('fade-out'); old.classList.remove('active'); }
+        function switchToCard(newId, onComplete) {
+            const oldCard = cards[currentCardId];
+            if(oldCard) {
+                oldCard.classList.add('fade-out');
+                oldCard.classList.remove('active');
+                setTimeout(() => oldCard.classList.remove('fade-out'), 300);
+            }
             setTimeout(() => {
                 const nextCard = cards[newId];
                 if(nextCard) {
                     nextCard.classList.add('active');
                     nextCard.classList.remove('fade-out');
                 }
-                currentCard = newId;
-                if(onActivated) onActivated();
-                if(newId === 'deep' || newId === 'final') document.getElementById('globalTapHint').style.opacity = '0';
-                else document.getElementById('globalTapHint').style.opacity = '0.7';
+                currentCardId = newId;
+                if(newId === 'deep' || newId === 'final') 
+                    document.getElementById('globalTapHint').style.opacity = '0';
+                else 
+                    document.getElementById('globalTapHint').style.opacity = '0.7';
+                if(onComplete) onComplete();
             }, 280);
         }
         
-        // photo handling (lowercase captions as requested: mellow one, two, three)
-        const photoDivs = [document.getElementById('photo0'), document.getElementById('photo1'), document.getElementById('photo2')];
-        let activePhoto = -1;
+        // photos (actual images melo1,2,3.jpg)
+        const photoElements = [document.getElementById('photo0'), document.getElementById('photo1'), document.getElementById('photo2')];
+        let activePhotoIdx = -1;
         function showPhoto(index) {
-            photoDivs.forEach((p,i) => p.classList.remove('show'));
-            if(index>=0 && index<photoDivs.length) {
-                photoDivs[index].classList.add('show');
-                activePhoto = index;
+            photoElements.forEach((p,i) => p.classList.remove('show'));
+            if(index >= 0 && index < photoElements.length) {
+                photoElements[index].classList.add('show');
+                activePhotoIdx = index;
             }
         }
-        function hideAllPhotos() { photoDivs.forEach(p => p.classList.remove('show')); activePhoto = -1; }
+        function hideAllPhotos() { photoElements.forEach(p => p.classList.remove('show')); activePhotoIdx = -1; }
         
-        // tap-to-advance with correct listener removal and photo triggering
-        function attachTapAdvance(cardName, nextCardName, photoIndex = null, beforeTransition = null) {
-            const cardElem = cards[cardName];
-            if(!cardElem) return;
-            const handler = (e) => {
-                // prevent if clicking on button or interactive element inside
+        // FIXED TAP TO ADVANCE (reliable)
+        function setupTapAdvance(cardName, nextCardName, photoIndex = null) {
+            const cardElement = cards[cardName];
+            if(!cardElement) return;
+            const handler = function(e) {
+                // ignore clicks on buttons or interactive elements inside the card
                 if(e.target.closest('.gold-button') || e.target.closest('.reveal-button') || e.target.closest('#musicToggleBtn')) return;
-                cardElem.removeEventListener('click', handler);
-                cardElem.removeEventListener('touchend', handler);
+                cardElement.removeEventListener('click', handler);
+                cardElement.removeEventListener('touchend', handler);
                 if(photoIndex !== null && photoIndex !== undefined) showPhoto(photoIndex);
-                if(beforeTransition) beforeTransition();
                 setTimeout(() => {
                     hideAllPhotos();
                     switchToCard(nextCardName);
-                }, 280);
+                }, 300);
             };
-            cardElem.addEventListener('click', handler);
-            cardElem.addEventListener('touchend', handler);
+            cardElement.addEventListener('click', handler);
+            cardElement.addEventListener('touchend', handler);
         }
         
-        // ----- populate and launch word-by-word on each card -----
-        function initStoryFlows() {
-            // meeting
-            typeTextWordByWord(document.getElementById('meetLine1'), "I remember the first time I saw you...", () => {});
+        // fill texts and attach transitions
+        function initializeStoryCards() {
+            // Meeting
+            typeTextWordByWord(document.getElementById('meetLine1'), "I remember the first time I saw you...");
             typeSentence(document.getElementById('meetLine2'), "There was something about you — a quiet curiosity.", 45);
-            typeTextWordByWord(document.getElementById('meetLine3'), "I didn't know it then, but that moment would stay with me.", null);
-            attachTapAdvance('meeting', 'sep', 0);
+            typeTextWordByWord(document.getElementById('meetLine3'), "I didn't know it then, but that moment would stay with me.");
+            setupTapAdvance('meeting', 'sep', 0);
             
-            // separation
-            typeTextWordByWord(document.getElementById('sepLine1'), "Then life pulled us apart.", () => {});
+            // Separation
+            typeTextWordByWord(document.getElementById('sepLine1'), "Then life pulled us apart.");
             typeSentence(document.getElementById('sepLine2'), "We lost connection. Days turned into silence.", 48);
-            typeTextWordByWord(document.getElementById('sepLine3'), "Something felt incomplete — a quiet ache I carried.", null);
-            attachTapAdvance('sep', 'reconnect', 1);
+            typeTextWordByWord(document.getElementById('sepLine3'), "Something felt incomplete — a quiet ache I carried.");
+            setupTapAdvance('sep', 'reconnect', 1);
             
-            // reconnect
-            typeTextWordByWord(document.getElementById('recLine1'), "And then — this year — we met again.", () => {});
-            typeSentence(document.getElementById('recLine2'), "Everything changed.", 80);
-            typeTextWordByWord(document.getElementById('recLine3'), "It was as if the universe had been waiting.", null);
-            attachTapAdvance('reconnect', 'love', 2);
+            // Reconnect
+            typeTextWordByWord(document.getElementById('recLine1'), "And then — this year — we met again.");
+            typeSentence(document.getElementById('recLine2'), "Everything changed.", 70);
+            typeTextWordByWord(document.getElementById('recLine3'), "It was as if the universe had been waiting.");
+            setupTapAdvance('reconnect', 'love', 2);
             
-            // love
-            typeTextWordByWord(document.getElementById('loveLine1'), "Slowly, you became important to me in ways I never expected.", ()=> {});
+            // Love
+            typeTextWordByWord(document.getElementById('loveLine1'), "Slowly, you became important to me in ways I never expected.");
             typeSentence(document.getElementById('loveLine2'), "Your laugh, your presence — they began to fill empty spaces.", 50);
             typeSentence(document.getElementById('loveLine3'), "You mean more to me than words can hold.", 55);
-            attachTapAdvance('love', 'deep', null);
+            setupTapAdvance('love', 'deep', null);
         }
         
-        // ----- HOLD REVEAL (simplified but robust) -----
-        let revealCompleted = false;
+        // HOLD REVEAL
+        let holdRevealed = false;
         function setupHoldReveal() {
             const zone = document.getElementById('revealZone');
             const msgDiv = document.getElementById('revealMsgArea');
             const deepAfter = document.getElementById('deepAfterText');
-            let timer = null;
-            let step = 0;
+            let holdTimer = null;
+            let stepCount = 0;
             const fullMsg = "You are the most beautiful surprise life has given me. Every moment with you feels like coming home to a place I never knew existed.";
             
             function startHold() {
-                if(revealCompleted) return;
+                if(holdRevealed) return;
                 zone.classList.add('pressed');
-                step = 0;
+                stepCount = 0;
                 msgDiv.innerText = "✦ holding... ✦";
-                timer = setInterval(() => {
-                    if(revealCompleted) return;
-                    step++;
-                    if(step === 1) msgDiv.innerText = "💛 opening my heart...";
-                    if(step === 2) { msgDiv.innerText = fullMsg; }
-                    if(step >= 2 && !revealCompleted) {
-                        clearInterval(timer);
-                        timer = null;
-                        revealCompleted = true;
+                holdTimer = setInterval(() => {
+                    if(holdRevealed) return;
+                    stepCount++;
+                    if(stepCount === 1) msgDiv.innerText = "💛 opening my heart...";
+                    if(stepCount === 2) { msgDiv.innerText = fullMsg; }
+                    if(stepCount >= 2 && !holdRevealed) {
+                        clearInterval(holdTimer);
+                        holdTimer = null;
+                        holdRevealed = true;
                         zone.style.borderColor = "#f5d470";
                         deepAfter.innerText = "I am vulnerable with you — and I wouldn't have it any other way.";
                         deepAfter.style.opacity = "1";
-                        setTimeout(() => {
-                            launchPuzzleAndFinal();
-                        }, 1100);
+                        setTimeout(() => launchPuzzleAndFinal(), 1200);
                     }
-                }, 370);
+                }, 380);
             }
             function endHold() {
-                if(revealCompleted) return;
-                if(timer) {
-                    clearInterval(timer);
-                    timer = null;
-                    if(step < 1) { msgDiv.innerText = ""; zone.classList.remove('pressed'); }
-                    else if(step === 1) {
+                if(holdRevealed) return;
+                if(holdTimer) {
+                    clearInterval(holdTimer);
+                    holdTimer = null;
+                    if(stepCount < 1) { msgDiv.innerText = ""; zone.classList.remove('pressed'); }
+                    else if(stepCount === 1) {
                         msgDiv.innerText = "keep holding a little more...";
-                        setTimeout(() => { if(!revealCompleted) msgDiv.innerText = ""; }, 700);
+                        setTimeout(() => { if(!holdRevealed) msgDiv.innerText = ""; }, 700);
                         zone.classList.remove('pressed');
                     } else zone.classList.remove('pressed');
                 } else zone.classList.remove('pressed');
@@ -635,31 +657,34 @@
             ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(ev => zone.addEventListener(ev, endHold));
         }
         
-        // puzzle & final transition
-        let puzzleResolved = false;
+        // PUZZLE + FINAL
+        let puzzleFinished = false;
         function launchPuzzleAndFinal() {
-            if(puzzleResolved) return;
+            if(puzzleFinished) return;
             const modal = document.getElementById('puzzleModal');
             const left = document.getElementById('leftPiece');
             const right = document.getElementById('rightPiece');
             const container = document.getElementById('puzzleContainer');
             const puzzleMsgSpan = document.getElementById('puzzleMsg');
             modal.classList.add('active');
-            let dragging = null;
-            let startClient = 0;
-            let leftX = 0, rightX = 0;
-            function setTransformX(el, val) { el.style.transform = `translateX(${val}px)`; }
-            function getTransformX(el) { 
-                const m = el.style.transform.match(/translateX\(([-\d.]+)px\)/);
-                return m ? parseFloat(m[1]) : 0;
+            let draggingSide = null;
+            let startClientX = 0;
+            let leftOffset = 0, rightOffset = 0;
+            
+            function getTranslateX(el) {
+                const transform = el.style.transform;
+                const match = transform.match(/translateX\(([-\d.]+)px\)/);
+                return match ? parseFloat(match[1]) : 0;
             }
-            setTransformX(left, 0); setTransformX(right, 0);
-            leftX = 0; rightX = 0;
+            function setTranslateX(el, val) { el.style.transform = `translateX(${val}px)`; }
+            setTranslateX(left, 0); setTranslateX(right, 0);
+            leftOffset = 0; rightOffset = 0;
+            
             function checkMerge() {
-                const lVal = getTransformX(left);
-                const rVal = getTransformX(right);
-                if(Math.abs(lVal - rVal) < 12 && !puzzleResolved) {
-                    puzzleResolved = true;
+                const lx = getTranslateX(left);
+                const rx = getTranslateX(right);
+                if(Math.abs(lx - rx) < 12 && !puzzleFinished) {
+                    puzzleFinished = true;
                     container.classList.add('together');
                     puzzleMsgSpan.innerText = "Our hearts belong together 💛";
                     left.style.pointerEvents = 'none';
@@ -670,36 +695,39 @@
                         switchToCard('final');
                         const finalBtn = document.getElementById('finalBtn');
                         const finalWhisperDiv = document.getElementById('finalWhisper');
-                        setTimeout(() => { finalWhisperDiv.style.transition = 'opacity 1s'; finalWhisperDiv.style.opacity = '1'; }, 400);
+                        setTimeout(() => {
+                            finalWhisperDiv.style.transition = 'opacity 1s';
+                            finalWhisperDiv.style.opacity = '1';
+                        }, 500);
                         finalBtn.onclick = (e) => {
                             e.stopPropagation();
                             burstIconsEffect();
                             finalBtn.innerText = '✨ always 🫶 ✨';
                             finalWhisperDiv.style.opacity = '1';
                         };
-                    }, 700);
+                    }, 800);
                 }
             }
-            function onStart(e, which) {
+            function onStart(e, side) {
                 e.preventDefault();
-                dragging = which;
+                draggingSide = side;
                 const touch = e.touches ? e.touches[0] : e;
-                startClient = touch.clientX;
-                if(dragging === 'left') leftX = getTransformX(left);
-                else rightX = getTransformX(right);
+                startClientX = touch.clientX;
+                if(side === 'left') leftOffset = getTranslateX(left);
+                else rightOffset = getTranslateX(right);
             }
             function onMove(e) {
-                if(!dragging) return;
+                if(!draggingSide) return;
                 e.preventDefault();
                 const touch = e.touches ? e.touches[0] : e;
-                const dx = touch.clientX - startClient;
-                let newVal = (dragging === 'left') ? leftX + dx : rightX + dx;
-                newVal = Math.min(Math.max(newVal, -48), 48);
-                if(dragging === 'left') { leftX = newVal; setTransformX(left, leftX); }
-                else { rightX = newVal; setTransformX(right, rightX); }
+                const dx = touch.clientX - startClientX;
+                let newVal = (draggingSide === 'left') ? leftOffset + dx : rightOffset + dx;
+                newVal = Math.min(Math.max(newVal, -50), 50);
+                if(draggingSide === 'left') { leftOffset = newVal; setTranslateX(left, leftOffset); }
+                else { rightOffset = newVal; setTranslateX(right, rightOffset); }
                 checkMerge();
             }
-            function onEnd() { dragging = null; }
+            function onEnd() { draggingSide = null; }
             left.addEventListener('mousedown', (e) => onStart(e, 'left'));
             left.addEventListener('touchstart', (e) => onStart(e, 'left'), { passive: false });
             right.addEventListener('mousedown', (e) => onStart(e, 'right'));
@@ -711,70 +739,73 @@
         }
         
         function burstIconsEffect() {
-            const icons = ['♡','✧','✦','⭐','💛','🌙'];
-            for(let i=0; i<48; i++) {
-                const star = document.createElement('div');
-                star.innerText = icons[Math.floor(Math.random()*icons.length)];
-                star.style.position = 'fixed';
-                star.style.left = window.innerWidth/2 + 'px';
-                star.style.top = window.innerHeight/2 + 'px';
-                star.style.fontSize = (1+Math.random()*2) + 'rem';
-                star.style.zIndex = '100';
-                star.style.pointerEvents = 'none';
-                star.style.color = '#f5cd6d';
-                star.style.transition = 'transform 1.4s ease-out, opacity 1.4s';
-                const angle = Math.random() * Math.PI * 2;
-                const dist = 110 + Math.random() * 210;
-                const tx = Math.cos(angle) * dist;
-                const ty = Math.sin(angle) * dist - 100;
-                document.body.appendChild(star);
+            const icons = ['♡','✧','✦','⭐','💛','🌙','🕯️'];
+            for(let i=0; i<55; i++) {
+                const el = document.createElement('div');
+                el.innerText = icons[Math.floor(Math.random()*icons.length)];
+                el.style.position = 'fixed';
+                el.style.left = window.innerWidth/2 + 'px';
+                el.style.top = window.innerHeight/2 + 'px';
+                el.style.fontSize = (1+Math.random()*2.2) + 'rem';
+                el.style.zIndex = '100';
+                el.style.pointerEvents = 'none';
+                el.style.color = '#f5cd6d';
+                el.style.transition = 'transform 1.3s ease-out, opacity 1.3s';
+                const ang = Math.random() * Math.PI * 2;
+                const dist = 120 + Math.random() * 220;
+                const tx = Math.cos(ang) * dist;
+                const ty = Math.sin(ang) * dist - 100;
+                document.body.appendChild(el);
                 requestAnimationFrame(() => {
-                    star.style.transform = `translate(${tx}px, ${ty}px) scale(0.4)`;
-                    star.style.opacity = '0';
+                    el.style.transform = `translate(${tx}px, ${ty}px) scale(0.3)`;
+                    el.style.opacity = '0';
                 });
-                setTimeout(() => star.remove(), 1450);
+                setTimeout(() => el.remove(), 1400);
             }
         }
         
-        // floating decor
-        function spawnFloatingIcon() {
+        // Floating decor
+        function spawnFloating() {
             const icons = ['♡','✧','✦','✲','⭐','🌙','🕯️','💫'];
-            const el = document.createElement('div');
-            el.className = 'floating-icon';
-            el.innerText = icons[Math.floor(Math.random()*icons.length)];
-            el.style.left = (5 + Math.random() * 85) + '%';
-            el.style.animationDuration = (6 + Math.random() * 5) + 's';
-            document.body.appendChild(el);
-            el.addEventListener('click', () => { el.style.transform = 'scale(1.9)'; setTimeout(()=>el.remove(),200); });
-            setTimeout(() => { if(el.parentNode) el.remove(); }, 9000);
+            const f = document.createElement('div');
+            f.className = 'floating-icon';
+            f.innerText = icons[Math.floor(Math.random()*icons.length)];
+            f.style.left = (5 + Math.random() * 85) + '%';
+            f.style.animationDuration = (6 + Math.random() * 5) + 's';
+            document.body.appendChild(f);
+            f.addEventListener('click', () => { f.style.transform = 'scale(1.8)'; setTimeout(()=>f.remove(),200); });
+            setTimeout(() => { if(f.parentNode) f.remove(); }, 9000);
         }
-        setInterval(() => { if(document.querySelectorAll('.floating-icon').length < 5) spawnFloatingIcon(); }, 2800);
-        for(let i=0;i<3;i++) setTimeout(spawnFloatingIcon, i*900);
+        setInterval(() => { if(document.querySelectorAll('.floating-icon').length < 5) spawnFloating(); }, 2800);
+        for(let i=0;i<3;i++) setTimeout(spawnFloating, i*900);
         
-        // intro begin button
-        document.getElementById('beginBtn').addEventListener('click', () => {
+        // INTRO BUTTON (FIXED: works now)
+        document.getElementById('beginBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            // ripple effect
+            this.style.transform = 'scale(0.96)';
+            setTimeout(() => { this.style.transform = ''; }, 150);
             hideAllPhotos();
+            initializeStoryCards();   // ensures all texts and tap handlers ready
             switchToCard('meeting');
-            initStoryFlows();   // ensures texts are filled
         });
         
         // deep intro text + hold
-        typeSentence(document.getElementById('deepIntroLine'), "There's something I need you to know…", 50);
+        typeSentence(document.getElementById('deepIntroLine'), "There's something I need you to know…", 55);
         setupHoldReveal();
         
-        // set photo captions exactly as required: mellow one, two, three (already done in html)
-        // final tweaks: ensure tap-hint visibility
+        // ensure global hint
         document.getElementById('globalTapHint').style.opacity = '0.7';
         
-        // swipe hint for photos
-        let touchStartX = 0;
-        document.body.addEventListener('touchstart', (e) => { if(activePhoto !== -1) touchStartX = e.touches[0].clientX; });
+        // photo swipe
+        let touchStartPos = 0;
+        document.body.addEventListener('touchstart', (e) => { if(activePhotoIdx !== -1) touchStartPos = e.touches[0].clientX; });
         document.body.addEventListener('touchend', (e) => {
-            if(activePhoto === -1) return;
-            const diff = e.changedTouches[0].clientX - touchStartX;
-            if(Math.abs(diff) > 55) {
-                let newIdx = diff < 0 ? activePhoto+1 : activePhoto-1;
-                if(newIdx >=0 && newIdx < photoDivs.length) showPhoto(newIdx);
+            if(activePhotoIdx === -1) return;
+            const delta = e.changedTouches[0].clientX - touchStartPos;
+            if(Math.abs(delta) > 55) {
+                let nextIdx = delta < 0 ? activePhotoIdx+1 : activePhotoIdx-1;
+                if(nextIdx >=0 && nextIdx < photoElements.length) showPhoto(nextIdx);
             }
         });
     })();
