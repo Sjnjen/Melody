@@ -23,7 +23,6 @@
             color: #f2ede4;
         }
 
-        /* ambient background glow */
         .bg-aura {
             position: fixed;
             inset: 0;
@@ -46,7 +45,6 @@
             100% { background-position: 120px 80px; }
         }
 
-        /* main UI container */
         .story-container {
             position: relative;
             z-index: 2;
@@ -60,9 +58,9 @@
         .card {
             position: absolute;
             width: 86%;
-            max-width: 520px;
-            background: rgba(18, 18, 20, 0.72);
-            backdrop-filter: blur(10px);
+            max-width: 540px;
+            background: rgba(18, 18, 20, 0.78);
+            backdrop-filter: blur(12px);
             border-radius: 2rem;
             padding: 2rem 1.8rem;
             text-align: center;
@@ -105,24 +103,21 @@
         .story-text {
             font-size: 1.13rem;
             line-height: 1.5;
-            margin: 1rem 0;
+            margin: 0.9rem 0;
             color: #f0e7da;
             font-weight: 400;
+            min-height: 3.2rem;
         }
-
         .story-text.italic {
             font-style: italic;
             color: #cdc2a8;
         }
-
         .highlight {
             font-size: 1.35rem;
             font-weight: 500;
             color: #d9b850;
-            letter-spacing: 0.01em;
         }
 
-        /* beautiful press button */
         .gold-button {
             background: rgba(212, 175, 55, 0.1);
             border: 1.2px solid #d4af37;
@@ -135,18 +130,15 @@
             color: #ecd67a;
             cursor: pointer;
             transition: all 0.25s ease;
-            margin-top: 1.4rem;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            margin-top: 1.2rem;
         }
         .gold-button:active {
             transform: scale(0.96);
             background: rgba(212, 175, 55, 0.25);
             box-shadow: 0 0 18px rgba(212, 175, 55, 0.6);
-            border-color: #eac65a;
         }
 
-        /* special reveal button (press & hold but simplified) */
+        /* beautiful press & hold button */
         .reveal-button {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(170, 130, 40, 0.25));
             border: 1.5px solid #e6c468;
@@ -155,39 +147,29 @@
             margin: 1.4rem 0 0.8rem;
             transition: all 0.2s;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
         .reveal-button.pressed {
-            background: rgba(212, 175, 55, 0.35);
+            background: rgba(212, 175, 55, 0.4);
             border-color: #ffdf80;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-            transform: scale(0.99);
+            transform: scale(0.98);
         }
         .reveal-label {
             font-size: 0.9rem;
             letter-spacing: 1px;
             color: #dbbf6e;
             text-transform: uppercase;
-            font-weight: 400;
         }
         .reveal-message {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #fef1cf;
-            margin-top: 0.5rem;
+            margin-top: 0.6rem;
             font-family: 'Cormorant Garamond', serif;
             font-weight: 500;
-            transition: opacity 0.3s;
             min-height: 4rem;
         }
 
-        .simple-icon {
-            font-size: 1.6rem;
-            display: inline-block;
-            margin: 0 4px;
-            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
-        }
-
+        /* photo slides (icons, no emojis) */
         .photo-slide {
             position: fixed;
             bottom: 14%;
@@ -195,8 +177,9 @@
             transform: translateX(-50%) scale(0.9);
             width: 70vw;
             max-width: 280px;
-            background: #17181c;
-            border-radius: 20px;
+            background: #17181cd9;
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
             border: 1px solid #d4af37;
             box-shadow: 0 20px 35px rgba(0, 0, 0, 0.5);
             z-index: 12;
@@ -204,7 +187,7 @@
             transition: opacity 0.4s, transform 0.3s ease;
             pointer-events: none;
             text-align: center;
-            padding: 14px 8px;
+            padding: 16px 10px;
         }
         .photo-slide.show {
             opacity: 1;
@@ -212,12 +195,12 @@
             pointer-events: auto;
         }
         .photo-icon {
-            font-size: 3.4rem;
-            margin-bottom: 5px;
+            font-size: 3.2rem;
+            margin-bottom: 6px;
         }
         .photo-caption {
             font-size: 0.85rem;
-            color: #c6bfa4;
+            color: #e0cf9c;
             letter-spacing: 0.04em;
         }
         .swipe-hint {
@@ -240,11 +223,11 @@
             pointer-events: none;
         }
 
-        /* puzzle overlay nice and simple */
+        /* puzzle overlay */
         .puzzle-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(8, 8, 12, 0.88);
+            background: rgba(8, 8, 12, 0.92);
             backdrop-filter: blur(8px);
             z-index: 30;
             display: flex;
@@ -275,58 +258,42 @@
             background: linear-gradient(145deg, #caa53a, #a47f2e);
             clip-path: polygon(50% 0%, 100% 20%, 100% 45%, 80% 70%, 50% 100%, 20% 70%, 0% 45%, 0% 20%);
             cursor: grab;
-            transition: filter 0.2s, transform 0.1s;
+            transition: filter 0.2s;
             box-shadow: 0 0 15px rgba(230, 190, 70, 0.4);
         }
-        .piece:active {
-            cursor: grabbing;
-            filter: brightness(1.1);
-        }
+        .piece:active { cursor: grabbing; filter: brightness(1.1); }
         .puzzle-message {
             margin-top: 32px;
             color: #f3e3b5;
             font-size: 1rem;
-            font-style: italic;
-        }
-        #puzzle-close-trigger {
-            position: absolute;
-            bottom: 20px;
-            background: none;
-            border: none;
-            color: #ab9c6c;
-            font-size: 0.8rem;
-            display: none;
         }
 
-        .floating-heart-icon {
+        .floating-icon {
             position: fixed;
             font-size: 1.4rem;
             bottom: -20px;
             pointer-events: auto;
             cursor: pointer;
             z-index: 5;
-            transition: transform 0.2s;
             filter: drop-shadow(0 0 6px #f0b84d);
+            animation: vanishFloat 7s linear forwards;
         }
-        .floating-heart-icon:active {
-            transform: scale(1.7);
-        }
-
+        .floating-icon:active { transform: scale(1.6); transition: 0.1s; }
         @keyframes vanishFloat {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             80% { opacity: 0.7; }
-            100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+            100% { transform: translateY(-110vh) rotate(15deg); opacity: 0; }
         }
 
-        .music-toggle {
+        .music-control {
             position: fixed;
             top: 18px;
             right: 18px;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 40px;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
             border: 1px solid #bc9a44;
             color: #e0bf6a;
             display: flex;
@@ -335,10 +302,10 @@
             font-size: 1.2rem;
             z-index: 40;
             cursor: pointer;
+            font-family: monospace;
         }
-
         @media (max-width: 460px) {
-            .card { padding: 1.5rem 1rem; width: 88%; }
+            .card { padding: 1.5rem 1rem; }
             .story-text { font-size: 1rem; }
             .piece { width: 80px; height: 112px; }
         }
@@ -347,10 +314,10 @@
 <body>
 <div class="bg-aura"></div>
 <div class="floating-dust"></div>
-<div id="musicToggle" class="music-toggle">🎵</div>
+<div class="music-control" id="musicToggleBtn">🎵</div>
 
 <div class="story-container" id="storyRoot">
-    <!-- intro card -->
+    <!-- intro -->
     <div class="card active" id="card-intro">
         <div class="greeting-icon">✧ ˚₊‧⁺˖♡</div>
         <h2>Hi Melody…</h2>
@@ -358,52 +325,52 @@
         <button class="gold-button" id="beginBtn">Begin journey →</button>
     </div>
 
-    <!-- meeting card -->
+    <!-- meeting -->
     <div class="card" id="card-meeting">
         <div class="greeting-icon">🌿✧</div>
-        <div class="story-text" id="meetTxt1">I remember the first time I noticed you...</div>
-        <div class="story-text italic" id="meetTxt2">A quiet presence, something unforgettable.</div>
-        <div class="story-text" id="meetTxt3">That moment stayed with me longer than I knew.</div>
-        <span class="tap-hint" style="position:relative; margin-top:16px;">✦ tap anywhere ✦</span>
+        <div class="story-text" id="meetLine1"></div>
+        <div class="story-text italic" id="meetLine2"></div>
+        <div class="story-text" id="meetLine3"></div>
+        <span class="tap-hint" style="position:relative; margin-top:12px;">✦ tap anywhere ✦</span>
     </div>
 
-    <!-- separation card -->
+    <!-- separation -->
     <div class="card" id="card-sep">
         <div class="greeting-icon">☁︎‧₊˚</div>
-        <div class="story-text" id="sepTxt1">Then life pulled us apart.</div>
-        <div class="story-text italic" id="sepTxt2">Days became quiet, connection faded into memory.</div>
-        <div class="story-text" id="sepTxt3">But something felt incomplete — a quiet ache.</div>
-        <span class="tap-hint" style="position:relative; margin-top:16px;">✦ tap to continue ✦</span>
+        <div class="story-text" id="sepLine1"></div>
+        <div class="story-text italic" id="sepLine2"></div>
+        <div class="story-text" id="sepLine3"></div>
+        <span class="tap-hint" style="position:relative; margin-top:12px;">✦ tap anywhere ✦</span>
     </div>
 
-    <!-- reconnect card -->
+    <!-- reconnect -->
     <div class="card" id="card-reconnect">
         <div class="greeting-icon">☄︎⋆⁺₊</div>
-        <div class="story-text" id="recTxt1">This year — we met again.</div>
-        <div class="story-text highlight" id="recTxt2">Everything changed.</div>
-        <div class="story-text" id="recTxt3">Like the universe had been waiting for this moment.</div>
-        <span class="tap-hint" style="position:relative; margin-top:16px;">✦ tap ✦</span>
+        <div class="story-text" id="recLine1"></div>
+        <div class="story-text highlight" id="recLine2"></div>
+        <div class="story-text" id="recLine3"></div>
+        <span class="tap-hint" style="position:relative; margin-top:12px;">✦ tap anywhere ✦</span>
     </div>
 
-    <!-- love card -->
+    <!-- love -->
     <div class="card" id="card-love">
         <div class="greeting-icon">✲⋆｡°✩</div>
-        <div class="story-text" id="loveTxt1">Slowly you became important, in ways I never expected.</div>
-        <div class="story-text" id="loveTxt2">Your laugh, your presence — they filled empty spaces.</div>
-        <div class="story-text highlight" id="loveTxt3">You mean more to me than words can hold.</div>
-        <span class="tap-hint" style="position:relative; margin-top:16px;">✦ tap ✦</span>
+        <div class="story-text" id="loveLine1"></div>
+        <div class="story-text" id="loveLine2"></div>
+        <div class="story-text highlight" id="loveLine3"></div>
+        <span class="tap-hint" style="position:relative; margin-top:12px;">✦ tap anywhere ✦</span>
     </div>
 
-    <!-- deep + hold reveal card (simplified with press button) -->
+    <!-- deep + hold reveal -->
     <div class="card" id="card-deep">
         <div class="greeting-icon">✧ ˚₊‧⁺˖</div>
-        <div class="story-text" id="deepLine">There's something I need you to know…</div>
+        <div class="story-text" id="deepIntroLine"></div>
         <div id="revealZone" class="reveal-button">
             <div class="reveal-label">✦ press and hold ✦</div>
             <div id="revealMsgArea" class="reveal-message"></div>
         </div>
-        <div class="story-text small-note" style="font-size:0.75rem; color:#b7a466;">gentle touch unlocks my heart</div>
-        <div id="deepAfter" class="story-text italic" style="margin-top:12px;"></div>
+        <div class="story-text small-note" style="font-size:0.7rem; color:#b7a466;">gentle touch unlocks my heart</div>
+        <div id="deepAfterText" class="story-text italic" style="margin-top:8px;"></div>
     </div>
 
     <!-- final card -->
@@ -415,16 +382,15 @@
     </div>
 </div>
 
-<!-- photo memories (icons instead of emoji) -->
+<!-- photos: mellow one, mellow two, mellow three (icons) -->
 <div id="photoMemories">
-    <div class="photo-slide" id="melo1.jpg"><div class="photo-icon">📖✨</div><div class="photo-caption">The moment we met</div><div class="swipe-hint">← → swipe</div></div>
-    <div class="photo-slide" id="melo2.jpg"><div class="photo-icon">🕯️🌙</div><div class="photo-caption">Thinking of you</div></div>
-    <div class="photo-slide" id="melo3.jpg"><div class="photo-icon">🔥💫</div><div class="photo-caption">When everything changed</div></div>
+    <div class="photo-slide" id="melo1.jpg"><div class="photo-icon">📖✨</div><div class="photo-caption">mine</div><div class="swipe-hint">← → swipe</div></div>
+    <div class="photo-slide" id="melo2.jpg"><div class="photo-icon">🕯️🌙</div><div class="photo-caption">the healer of my pain </div></div>
+    <div class="photo-slide" id="photo.jpg"><div class="photo-icon">🔥💫</div><div class="photo-caption">I'll protect you from anything</div></div>
 </div>
 
 <div class="tap-hint" id="globalTapHint">tap to continue story</div>
 
-<!-- puzzle popup -->
 <div id="puzzleModal" class="puzzle-overlay">
     <div class="puzzle-pieces" id="puzzleContainer">
         <div id="leftPiece" class="piece"></div>
@@ -435,61 +401,104 @@
 
 <script>
     (function(){
-        // ---------- simple ambient audio ----------
-        let audioCtx = null;
-        let isAudioPlaying = false;
-        let osc1, osc2, gainNode;
-        const musicBtn = document.getElementById('musicToggle');
-        function initSoftAudio() {
-            if(audioCtx) return;
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            gainNode = audioCtx.createGain();
-            gainNode.gain.value = 0;
-            gainNode.connect(audioCtx.destination);
-            osc1 = audioCtx.createOscillator();
-            osc1.type = 'sine';
-            osc1.frequency.value = 221;
-            osc2 = audioCtx.createOscillator();
-            osc2.type = 'sine';
-            osc2.frequency.value = 277;
-            const merge = audioCtx.createGain();
-            merge.gain.value = 0.18;
-            osc1.connect(merge);
-            osc2.connect(merge);
-            merge.connect(gainNode);
-            osc1.start();
-            osc2.start();
+        // ----- MUSIC HANDLING: user can place their own audio file -----
+        // 1) Place your music file (e.g. "melody-song.mp3") in the same folder.
+        // 2) Uncomment the line below and set the correct filename.
+        const musicFileURL = "melody-song.mp3";   // <-- CHANGE THIS TO YOUR MUSIC FILE NAME
+        let audioElement = null;
+        let musicEnabled = false;
+        const musicBtn = document.getElementById('musicToggleBtn');
+        
+        function initMusic() {
+            if(audioElement) return;
+            audioElement = new Audio();
+            audioElement.loop = true;
+            audioElement.volume = 0.38;
+            // check if file exists (optional but safe)
+            audioElement.src = musicFileURL;
+            audioElement.load();
         }
-        function fadeInMusic() {
-            if (!audioCtx) initSoftAudio();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            if (gainNode) {
-                gainNode.gain.linearRampToValueAtTime(0.038, audioCtx.currentTime + 1.2);
+        
+        function startMusic() {
+            if(!audioElement) initMusic();
+            if(audioElement && !musicEnabled) {
+                audioElement.play().catch(e => console.log("autoplay blocked, tap to enable music"));
+                musicEnabled = true;
+                musicBtn.innerHTML = '♪';
+                musicBtn.style.opacity = '1';
             }
-            isAudioPlaying = true;
-            musicBtn.innerHTML = '♪';
-            musicBtn.style.opacity = '1';
         }
-        function fadeOutMusic() {
-            if(gainNode) gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.8);
-            isAudioPlaying = false;
-            musicBtn.innerHTML = '♩';
+        
+        function stopMusic() {
+            if(audioElement && musicEnabled) {
+                audioElement.pause();
+                musicEnabled = false;
+                musicBtn.innerHTML = '♩';
+            }
         }
+        
         musicBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if(!audioCtx) initSoftAudio();
-            if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-            if(!isAudioPlaying) fadeInMusic();
-            else fadeOutMusic();
+            if(!audioElement) initMusic();
+            if(!musicEnabled) {
+                audioElement.play().then(() => {
+                    musicEnabled = true;
+                    musicBtn.innerHTML = '♪';
+                }).catch(() => {});
+            } else {
+                audioElement.pause();
+                musicEnabled = false;
+                musicBtn.innerHTML = '♩';
+            }
         });
-        // small auto-start on first user tap globally (respect browser policy)
+        
+        // auto-start music on first user tap (respects browser policy)
         document.body.addEventListener('click', function once() {
-            if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-            if(!isAudioPlaying && audioCtx) fadeInMusic();
+            if(!audioElement) initMusic();
+            if(!musicEnabled && audioElement) {
+                audioElement.play().catch(()=>{});
+                musicEnabled = true;
+                musicBtn.innerHTML = '♪';
+            }
             document.body.removeEventListener('click', once);
         }, { once: true });
-
-        // ---------- scene management ----------
+        
+        // ---------- WORD-BY-WORD ANIMATION (moving text) ----------
+        function typeTextWordByWord(element, fullText, onComplete) {
+            if(!element) return;
+            element.textContent = '';
+            element.style.opacity = '1';
+            const words = fullText.split(' ');
+            let index = 0;
+            function addWord() {
+                if(index < words.length) {
+                    element.textContent += (index === 0 ? '' : ' ') + words[index];
+                    index++;
+                    const delay = (words[index-1].length > 5 ? 120 : 80);
+                    setTimeout(addWord, delay);
+                } else if(onComplete) {
+                    setTimeout(onComplete, 200);
+                }
+            }
+            addWord();
+        }
+        
+        // simpler type for short lines
+        function typeSentence(element, text, speed = 55, callback) {
+            element.textContent = '';
+            let i = 0;
+            function type() {
+                if(i < text.length) {
+                    element.textContent += text[i];
+                    i++;
+                    setTimeout(type, speed);
+                } else if(callback) callback();
+            }
+            type();
+        }
+        
+        // ----- scene transition + tap to continue (fixed reliability)-----
+        let currentCard = 'intro';
         const cards = {
             intro: document.getElementById('card-intro'),
             meeting: document.getElementById('card-meeting'),
@@ -499,251 +508,223 @@
             deep: document.getElementById('card-deep'),
             final: document.getElementById('card-final')
         };
-        let currentCardId = 'intro';
-
-        function switchToCard(newId, onComplete) {
-            const oldCard = cards[currentCardId];
-            if(oldCard) {
-                oldCard.classList.add('fade-out');
-                oldCard.classList.remove('active');
-                setTimeout(() => oldCard.classList.remove('fade-out'), 300);
-            }
+        
+        function switchToCard(newId, onActivated) {
+            const old = cards[currentCard];
+            if(old) { old.classList.add('fade-out'); old.classList.remove('active'); }
             setTimeout(() => {
                 const nextCard = cards[newId];
                 if(nextCard) {
                     nextCard.classList.add('active');
                     nextCard.classList.remove('fade-out');
                 }
-                currentCardId = newId;
-                if(onComplete) onComplete();
-                // hide global hint if deep or final
+                currentCard = newId;
+                if(onActivated) onActivated();
                 if(newId === 'deep' || newId === 'final') document.getElementById('globalTapHint').style.opacity = '0';
                 else document.getElementById('globalTapHint').style.opacity = '0.7';
-            }, 250);
+            }, 280);
         }
-
-        // photo memory logic with icons
-        const photoSlides = [document.getElementById('photo0'), document.getElementById('photo1'), document.getElementById('photo2')];
-        let activePhotoIndex = -1;
+        
+        // photo handling (lowercase captions as requested: mellow one, two, three)
+        const photoDivs = [document.getElementById('photo0'), document.getElementById('photo1'), document.getElementById('photo2')];
+        let activePhoto = -1;
         function showPhoto(index) {
-            photoSlides.forEach((p, i) => { p.classList.remove('show'); });
-            if(index >= 0 && index < photoSlides.length) {
-                photoSlides[index].classList.add('show');
-                activePhotoIndex = index;
+            photoDivs.forEach((p,i) => p.classList.remove('show'));
+            if(index>=0 && index<photoDivs.length) {
+                photoDivs[index].classList.add('show');
+                activePhoto = index;
             }
         }
-        function hideAllPhotos() { photoSlides.forEach(p => p.classList.remove('show')); activePhotoIndex = -1; }
-
-        // tap advance helpers
-        function attachTapAdvance(cardName, nextCard, photoIndex) {
-            const card = cards[cardName];
-            if(!card) return;
+        function hideAllPhotos() { photoDivs.forEach(p => p.classList.remove('show')); activePhoto = -1; }
+        
+        // tap-to-advance with correct listener removal and photo triggering
+        function attachTapAdvance(cardName, nextCardName, photoIndex = null, beforeTransition = null) {
+            const cardElem = cards[cardName];
+            if(!cardElem) return;
             const handler = (e) => {
-                if(e.target.closest('.gold-button') || e.target.closest('.reveal-button')) return;
-                card.removeEventListener('click', handler);
-                card.removeEventListener('touchend', handler);
-                if(photoIndex !== undefined && photoIndex !== null) showPhoto(photoIndex);
+                // prevent if clicking on button or interactive element inside
+                if(e.target.closest('.gold-button') || e.target.closest('.reveal-button') || e.target.closest('#musicToggleBtn')) return;
+                cardElem.removeEventListener('click', handler);
+                cardElem.removeEventListener('touchend', handler);
+                if(photoIndex !== null && photoIndex !== undefined) showPhoto(photoIndex);
+                if(beforeTransition) beforeTransition();
                 setTimeout(() => {
                     hideAllPhotos();
-                    switchToCard(nextCard);
+                    switchToCard(nextCardName);
                 }, 280);
             };
-            card.addEventListener('click', handler);
-            card.addEventListener('touchend', handler);
+            cardElem.addEventListener('click', handler);
+            cardElem.addEventListener('touchend', handler);
         }
-
-        // story steps (clear text approach)
-        function startMeeting() { attachTapAdvance('meeting', 'sep', 0); }
-        function startSep() { attachTapAdvance('sep', 'reconnect', 1); }
-        function startReconnect() { attachTapAdvance('reconnect', 'love', 2); }
-        function startLove() { attachTapAdvance('love', 'deep', null); }
-
-        // ---------- HOLD reveal simplified (decorative, reliable) ----------
-        let holdCompleted = false;
+        
+        // ----- populate and launch word-by-word on each card -----
+        function initStoryFlows() {
+            // meeting
+            typeTextWordByWord(document.getElementById('meetLine1'), "I remember the first time I saw you...", () => {});
+            typeSentence(document.getElementById('meetLine2'), "There was something about you — a quiet curiosity.", 45);
+            typeTextWordByWord(document.getElementById('meetLine3'), "I didn't know it then, but that moment would stay with me.", null);
+            attachTapAdvance('meeting', 'sep', 0);
+            
+            // separation
+            typeTextWordByWord(document.getElementById('sepLine1'), "Then life pulled us apart.", () => {});
+            typeSentence(document.getElementById('sepLine2'), "We lost connection. Days turned into silence.", 48);
+            typeTextWordByWord(document.getElementById('sepLine3'), "Something felt incomplete — a quiet ache I carried.", null);
+            attachTapAdvance('sep', 'reconnect', 1);
+            
+            // reconnect
+            typeTextWordByWord(document.getElementById('recLine1'), "And then — this year — we met again.", () => {});
+            typeSentence(document.getElementById('recLine2'), "Everything changed.", 80);
+            typeTextWordByWord(document.getElementById('recLine3'), "It was as if the universe had been waiting.", null);
+            attachTapAdvance('reconnect', 'love', 2);
+            
+            // love
+            typeTextWordByWord(document.getElementById('loveLine1'), "Slowly, you became important to me in ways I never expected.", ()=> {});
+            typeSentence(document.getElementById('loveLine2'), "Your laugh, your presence — they began to fill empty spaces.", 50);
+            typeSentence(document.getElementById('loveLine3'), "You mean more to me than words can hold.", 55);
+            attachTapAdvance('love', 'deep', null);
+        }
+        
+        // ----- HOLD REVEAL (simplified but robust) -----
+        let revealCompleted = false;
         function setupHoldReveal() {
-            const revealZone = document.getElementById('revealZone');
-            const revealMsgDiv = document.getElementById('revealMsgArea');
-            const deepAfterSpan = document.getElementById('deepAfter');
-            let pressTimer = null;
-            let progressStep = 0;
-            const fullMessage = "You are the most beautiful surprise life has given me. Every moment with you feels like coming home.";
-
+            const zone = document.getElementById('revealZone');
+            const msgDiv = document.getElementById('revealMsgArea');
+            const deepAfter = document.getElementById('deepAfterText');
+            let timer = null;
+            let step = 0;
+            const fullMsg = "You are the most beautiful surprise life has given me. Every moment with you feels like coming home to a place I never knew existed.";
+            
             function startHold() {
-                if(holdCompleted) return;
-                revealZone.classList.add('pressed');
-                progressStep = 0;
-                revealMsgDiv.innerText = "✦ holding... ✦";
-                pressTimer = setInterval(() => {
-                    if(holdCompleted) return;
-                    progressStep++;
-                    if(progressStep === 1) revealMsgDiv.innerText = "💛 opening my heart...";
-                    if(progressStep === 2) revealMsgDiv.innerText = fullMessage;
-                    if(progressStep >= 2 && !holdCompleted) {
-                        clearInterval(pressTimer);
-                        pressTimer = null;
-                        holdCompleted = true;
-                        revealMsgDiv.innerText = fullMessage;
-                        revealZone.style.opacity = '0.9';
-                        revealZone.style.borderColor = '#f5d470';
-                        deepAfterSpan.innerText = "I am vulnerable with you — and I wouldn't have it any other way.";
-                        deepAfterSpan.style.opacity = '1';
-                        // after 1 second trigger heart puzzle
+                if(revealCompleted) return;
+                zone.classList.add('pressed');
+                step = 0;
+                msgDiv.innerText = "✦ holding... ✦";
+                timer = setInterval(() => {
+                    if(revealCompleted) return;
+                    step++;
+                    if(step === 1) msgDiv.innerText = "💛 opening my heart...";
+                    if(step === 2) { msgDiv.innerText = fullMsg; }
+                    if(step >= 2 && !revealCompleted) {
+                        clearInterval(timer);
+                        timer = null;
+                        revealCompleted = true;
+                        zone.style.borderColor = "#f5d470";
+                        deepAfter.innerText = "I am vulnerable with you — and I wouldn't have it any other way.";
+                        deepAfter.style.opacity = "1";
                         setTimeout(() => {
                             launchPuzzleAndFinal();
                         }, 1100);
                     }
-                }, 340);
+                }, 370);
             }
             function endHold() {
-                if(holdCompleted) return;
-                if(pressTimer) {
-                    clearInterval(pressTimer);
-                    pressTimer = null;
-                    if(progressStep < 1) {
-                        revealMsgDiv.innerText = "";
-                        revealZone.classList.remove('pressed');
-                    } else if(progressStep === 1 && !holdCompleted) {
-                        revealMsgDiv.innerText = "keep holding a little more...";
-                        setTimeout(() => { if(!holdCompleted) revealMsgDiv.innerText = ""; }, 600);
-                        revealZone.classList.remove('pressed');
-                    } else {
-                        revealZone.classList.remove('pressed');
-                    }
-                } else {
-                    revealZone.classList.remove('pressed');
-                }
+                if(revealCompleted) return;
+                if(timer) {
+                    clearInterval(timer);
+                    timer = null;
+                    if(step < 1) { msgDiv.innerText = ""; zone.classList.remove('pressed'); }
+                    else if(step === 1) {
+                        msgDiv.innerText = "keep holding a little more...";
+                        setTimeout(() => { if(!revealCompleted) msgDiv.innerText = ""; }, 700);
+                        zone.classList.remove('pressed');
+                    } else zone.classList.remove('pressed');
+                } else zone.classList.remove('pressed');
             }
-            revealZone.addEventListener('mousedown', startHold);
-            revealZone.addEventListener('touchstart', startHold, { passive: false });
-            ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(ev => revealZone.addEventListener(ev, endHold));
+            zone.addEventListener('mousedown', startHold);
+            zone.addEventListener('touchstart', startHold, { passive: false });
+            ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(ev => zone.addEventListener(ev, endHold));
         }
-
-        // Puzzle (drag & drop simplified)
-        let puzzleActive = false;
+        
+        // puzzle & final transition
+        let puzzleResolved = false;
         function launchPuzzleAndFinal() {
+            if(puzzleResolved) return;
             const modal = document.getElementById('puzzleModal');
             const left = document.getElementById('leftPiece');
             const right = document.getElementById('rightPiece');
             const container = document.getElementById('puzzleContainer');
             const puzzleMsgSpan = document.getElementById('puzzleMsg');
             modal.classList.add('active');
-            let draggingPiece = null;
-            let startX = 0, startY = 0, initialLeft = 0, initialRight = 0;
-            let leftTransform = 0, rightTransform = 0;
-            function resetPositions() {
-                left.style.transform = 'translateX(0px)';
-                right.style.transform = 'translateX(0px)';
-                leftTransform = 0; rightTransform = 0;
-            }
-            resetPositions();
+            let dragging = null;
+            let startClient = 0;
+            let leftX = 0, rightX = 0;
+            function setTransformX(el, val) { el.style.transform = `translateX(${val}px)`; }
             function getTransformX(el) { 
-                const match = el.style.transform.match(/translateX\(([-\d.]+)px\)/);
-                return match ? parseFloat(match[1]) : 0;
+                const m = el.style.transform.match(/translateX\(([-\d.]+)px\)/);
+                return m ? parseFloat(m[1]) : 0;
             }
+            setTransformX(left, 0); setTransformX(right, 0);
+            leftX = 0; rightX = 0;
             function checkMerge() {
-                const lx = getTransformX(left);
-                const rx = getTransformX(right);
-                const dist = Math.abs(lx - rx);
-                if(dist < 12 && !puzzleActive) {
-                    puzzleActive = true;
+                const lVal = getTransformX(left);
+                const rVal = getTransformX(right);
+                if(Math.abs(lVal - rVal) < 12 && !puzzleResolved) {
+                    puzzleResolved = true;
                     container.classList.add('together');
                     puzzleMsgSpan.innerText = "Our hearts belong together 💛";
-                    left.style.cursor = 'default';
-                    right.style.cursor = 'default';
                     left.style.pointerEvents = 'none';
                     right.style.pointerEvents = 'none';
                     setTimeout(() => {
                         modal.classList.remove('active');
                         container.classList.remove('together');
-                        // go to final scene
                         switchToCard('final');
-                        const finalWhisper = document.getElementById('finalWhisper');
                         const finalBtn = document.getElementById('finalBtn');
-                        finalWhisper.style.opacity = '0';
-                        setTimeout(() => {
-                            finalWhisper.style.transition = 'opacity 1s';
-                            finalWhisper.style.opacity = '1';
-                        }, 600);
+                        const finalWhisperDiv = document.getElementById('finalWhisper');
+                        setTimeout(() => { finalWhisperDiv.style.transition = 'opacity 1s'; finalWhisperDiv.style.opacity = '1'; }, 400);
                         finalBtn.onclick = (e) => {
                             e.stopPropagation();
                             burstIconsEffect();
-                            finalBtn.style.opacity = '0.7';
                             finalBtn.innerText = '✨ always 🫶 ✨';
-                            finalWhisper.style.opacity = '1';
+                            finalWhisperDiv.style.opacity = '1';
                         };
-                    }, 800);
+                    }, 700);
                 }
             }
-            function onStart(e, piece) {
+            function onStart(e, which) {
                 e.preventDefault();
-                draggingPiece = piece;
+                dragging = which;
                 const touch = e.touches ? e.touches[0] : e;
-                startX = touch.clientX;
-                const currentX = piece === left ? leftTransform : rightTransform;
-                initialLeft = leftTransform;
-                initialRight = rightTransform;
-                piece.style.cursor = 'grabbing';
+                startClient = touch.clientX;
+                if(dragging === 'left') leftX = getTransformX(left);
+                else rightX = getTransformX(right);
             }
             function onMove(e) {
-                if(!draggingPiece) return;
+                if(!dragging) return;
                 e.preventDefault();
                 const touch = e.touches ? e.touches[0] : e;
-                const dx = touch.clientX - startX;
-                let newVal = (draggingPiece === left ? initialLeft + dx : initialRight + dx);
-                newVal = Math.min(Math.max(newVal, -45), 45);
-                if(draggingPiece === left) { leftTransform = newVal; left.style.transform = `translateX(${leftTransform}px)`; }
-                else { rightTransform = newVal; right.style.transform = `translateX(${rightTransform}px)`; }
+                const dx = touch.clientX - startClient;
+                let newVal = (dragging === 'left') ? leftX + dx : rightX + dx;
+                newVal = Math.min(Math.max(newVal, -48), 48);
+                if(dragging === 'left') { leftX = newVal; setTransformX(left, leftX); }
+                else { rightX = newVal; setTransformX(right, rightX); }
                 checkMerge();
             }
-            function onEnd() {
-                if(draggingPiece) {
-                    draggingPiece.style.cursor = 'grab';
-                    draggingPiece = null;
-                }
-            }
-            left.addEventListener('mousedown', (e) => onStart(e, left));
-            left.addEventListener('touchstart', (e) => onStart(e, left), {passive: false});
-            right.addEventListener('mousedown', (e) => onStart(e, right));
-            right.addEventListener('touchstart', (e) => onStart(e, right), {passive: false});
+            function onEnd() { dragging = null; }
+            left.addEventListener('mousedown', (e) => onStart(e, 'left'));
+            left.addEventListener('touchstart', (e) => onStart(e, 'left'), { passive: false });
+            right.addEventListener('mousedown', (e) => onStart(e, 'right'));
+            right.addEventListener('touchstart', (e) => onStart(e, 'right'), { passive: false });
             document.addEventListener('mousemove', onMove);
-            document.addEventListener('touchmove', onMove, {passive: false});
+            document.addEventListener('touchmove', onMove, { passive: false });
             document.addEventListener('mouseup', onEnd);
             document.addEventListener('touchend', onEnd);
         }
-
-        // floating interactive decor (icons)
-        function spawnFloating() {
-            const iconSet = ['♡', '✧', '✦', '✲', '⭐', '🌙', '🕯️', '💫'];
-            const floatDiv = document.createElement('div');
-            floatDiv.className = 'floating-heart-icon';
-            floatDiv.innerText = iconSet[Math.floor(Math.random() * iconSet.length)];
-            floatDiv.style.left = (5 + Math.random() * 85) + '%';
-            floatDiv.style.bottom = '-20px';
-            floatDiv.style.animation = `vanishFloat ${6 + Math.random() * 5}s linear forwards`;
-            document.body.appendChild(floatDiv);
-            floatDiv.addEventListener('click', () => {
-                floatDiv.style.transform = 'scale(2)';
-                setTimeout(() => floatDiv.remove(), 300);
-            });
-            setTimeout(() => { if(floatDiv.parentNode) floatDiv.remove(); }, 9000);
-        }
-        setInterval(() => { if(document.querySelectorAll('.floating-heart-icon').length < 6) spawnFloating(); }, 2800);
-        for(let i=0;i<3;i++) setTimeout(spawnFloating, i*1000);
-
+        
         function burstIconsEffect() {
+            const icons = ['♡','✧','✦','⭐','💛','🌙'];
             for(let i=0; i<48; i++) {
                 const star = document.createElement('div');
-                star.innerText = ['♡','✧','✦','💛','⭐'][Math.floor(Math.random()*5)];
+                star.innerText = icons[Math.floor(Math.random()*icons.length)];
                 star.style.position = 'fixed';
                 star.style.left = window.innerWidth/2 + 'px';
                 star.style.top = window.innerHeight/2 + 'px';
-                star.style.fontSize = (1 + Math.random()*2) + 'rem';
+                star.style.fontSize = (1+Math.random()*2) + 'rem';
                 star.style.zIndex = '100';
                 star.style.pointerEvents = 'none';
                 star.style.color = '#f5cd6d';
                 star.style.transition = 'transform 1.4s ease-out, opacity 1.4s';
                 const angle = Math.random() * Math.PI * 2;
-                const dist = 120 + Math.random() * 200;
+                const dist = 110 + Math.random() * 210;
                 const tx = Math.cos(angle) * dist;
                 const ty = Math.sin(angle) * dist - 100;
                 document.body.appendChild(star);
@@ -751,51 +732,51 @@
                     star.style.transform = `translate(${tx}px, ${ty}px) scale(0.4)`;
                     star.style.opacity = '0';
                 });
-                setTimeout(() => star.remove(), 1400);
+                setTimeout(() => star.remove(), 1450);
             }
         }
-
-        // initial flow: after begin button
+        
+        // floating decor
+        function spawnFloatingIcon() {
+            const icons = ['♡','✧','✦','✲','⭐','🌙','🕯️','💫'];
+            const el = document.createElement('div');
+            el.className = 'floating-icon';
+            el.innerText = icons[Math.floor(Math.random()*icons.length)];
+            el.style.left = (5 + Math.random() * 85) + '%';
+            el.style.animationDuration = (6 + Math.random() * 5) + 's';
+            document.body.appendChild(el);
+            el.addEventListener('click', () => { el.style.transform = 'scale(1.9)'; setTimeout(()=>el.remove(),200); });
+            setTimeout(() => { if(el.parentNode) el.remove(); }, 9000);
+        }
+        setInterval(() => { if(document.querySelectorAll('.floating-icon').length < 5) spawnFloatingIcon(); }, 2800);
+        for(let i=0;i<3;i++) setTimeout(spawnFloatingIcon, i*900);
+        
+        // intro begin button
         document.getElementById('beginBtn').addEventListener('click', () => {
             hideAllPhotos();
             switchToCard('meeting');
-            setTimeout(() => {
-                document.getElementById('meetTxt1').innerText = "I remember the first time I saw you.";
-                document.getElementById('meetTxt2').innerText = "A quiet curiosity that stayed with me.";
-                document.getElementById('meetTxt3').innerText = "I didn’t know it then, but that moment would last.";
-                startMeeting();
-            }, 100);
+            initStoryFlows();   // ensures texts are filled
         });
-        // predefine deep reveal
+        
+        // deep intro text + hold
+        typeSentence(document.getElementById('deepIntroLine'), "There's something I need you to know…", 50);
         setupHoldReveal();
-        // fill other automatic steps
-        setTimeout(() => {
-            if(cards.meeting) {
-                document.getElementById('sepTxt1').innerText = "Then life pulled us apart for a while.";
-                document.getElementById('sepTxt2').innerText = "Connection faded into silence, but not the feeling.";
-                document.getElementById('sepTxt3').innerText = "Something was incomplete — a quiet ache.";
-                document.getElementById('recTxt1').innerText = "And then — this year — we met again.";
-                document.getElementById('recTxt2').innerText = "Everything changed.";
-                document.getElementById('recTxt3').innerText = "Like the universe had been waiting.";
-                document.getElementById('loveTxt1').innerText = "Slowly you became important in ways I never expected.";
-                document.getElementById('loveTxt2').innerText = "Your laugh, your presence filled empty spaces.";
-                document.getElementById('loveTxt3').innerText = "You mean more to me than words can hold.";
-            }
-            startSep(); startReconnect(); startLove();
-        }, 50);
-        // swipe photos
-        let touchStart = 0;
-        document.body.addEventListener('touchstart', (e) => { if(activePhotoIndex !== -1) touchStart = e.touches[0].clientX; });
+        
+        // set photo captions exactly as required: mellow one, two, three (already done in html)
+        // final tweaks: ensure tap-hint visibility
+        document.getElementById('globalTapHint').style.opacity = '0.7';
+        
+        // swipe hint for photos
+        let touchStartX = 0;
+        document.body.addEventListener('touchstart', (e) => { if(activePhoto !== -1) touchStartX = e.touches[0].clientX; });
         document.body.addEventListener('touchend', (e) => {
-            if(activePhotoIndex === -1) return;
-            const diff = e.changedTouches[0].clientX - touchStart;
+            if(activePhoto === -1) return;
+            const diff = e.changedTouches[0].clientX - touchStartX;
             if(Math.abs(diff) > 55) {
-                let newIdx = diff < 0 ? activePhotoIndex+1 : activePhotoIndex-1;
-                if(newIdx >=0 && newIdx < photoSlides.length) showPhoto(newIdx);
+                let newIdx = diff < 0 ? activePhoto+1 : activePhoto-1;
+                if(newIdx >=0 && newIdx < photoDivs.length) showPhoto(newIdx);
             }
         });
-        // final adjustments
-        document.getElementById('globalTapHint').style.opacity = '0.7';
     })();
 </script>
 </body>
